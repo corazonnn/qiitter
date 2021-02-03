@@ -1,0 +1,42 @@
+<div class="box-signin">
+  <div class="box-inner">
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <h1 class="text-center">アカウント登録</h1>
+      <div class="box-email">
+        <%= f.label :name, "ユーザ名" %> <br />
+        <%= f.text_field :name %>
+      </div>
+      <div class="box-email">
+        <%= f.label :email, "メールアドレス" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+      <div class="box-password">
+        <div class="a-row">
+          <div class="column-left">
+            <%= f.label :password, "パスワード" %>
+          </div>
+        </div>
+        <% if @minimum_password_length %>
+        <small>(英数字<%= @minimum_password_length %>字以上)</small>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
+      <div class="box-password">
+        <div class="a-row">
+          <div class="column-left">
+            <%= f.label :password_confirmation, "パスワード(確認用)" %><br />
+          </div>
+        </div>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+      <div class="box-login">
+        <%= f.submit "アカウント登録" %>
+      </div>
+    <% end %>
+    <div class="box-newusr">
+      <%= link_to "ログイン", new_session_path(resource_name) %><br />
+    </div>
+  </div>
+</div>
