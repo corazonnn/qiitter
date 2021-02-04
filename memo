@@ -1,0 +1,3 @@
+Webpacker::Manifest::MissingEntryError in
+rails s を実行してページを開こうとすると、上記のようなエラーが出た。その解決策としてapplication.html.erbファイルの以下のコードを消した。
+<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>

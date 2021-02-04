@@ -57,3 +57,16 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # database.ymlのusernameとpasswordは第三者に漏れるのを防ぐために、このgemを入れて、.envファイルで管理する。
 gem 'dotenv-rails'
+
+# ログイン機能
+gem 'devise'
+
+#bootstrapを導入するため
+gem 'bootstrap', '~> 4.1.1'
+gem 'jquery-rails'
+
+
+
+
+
+
