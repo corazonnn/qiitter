@@ -10,6 +10,12 @@
     <div class="description">
       email:<%= @user.email %>
     </div>
+    <div class="description">
+
+        <%= image_tag @user.image.url,class: 'icon' %>
+      
+    </div>
+
     <button class="ui button">
       <%= link_to "編集", edit_user_registration_path %>
     </button>

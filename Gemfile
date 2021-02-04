@@ -67,3 +67,6 @@ gem 'jquery-rails'
 
 #cssフレームワーク
 gem 'semantic-ui-sass'
+#画像アップロード
+gem 'carrierwave'
+gem 'mini_magick'
