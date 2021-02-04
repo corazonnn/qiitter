@@ -1,7 +1,29 @@
-<h1>マイページ</h1>
-
-<%= link_to "編集", edit_user_registration_path %>
-<h3>ユーザー名</h3>
-<%= @user.name %>
-<h3>メールアドレス</h3>
-<%= @user.email %>
+<div class="ui card">
+  <div class="image">
+    <img src="/images/avatar2/large/kristy.png">
+  </div>
+  <div class="content">
+    <a class="header"><%= @user.name %></a>
+    <div class="meta">
+      <span class="date">Joined in 2013</span>
+    </div>
+    <div class="description">
+      email:<%= @user.email %>
+    </div>
+    <button class="ui button">
+      <%= link_to "編集", edit_user_registration_path %>
+    </button>
+    <div class="ui relaxed grid">
+     <div class="three column row">
+       <div class="column"><div>投稿</div><div>40</div></div>
+       <div class="column"><div>フォロー</div><div>22</div></div>
+       <div class="column"><div>フォロワー</div><div>22</div></div>
+     </div>
+    </div>
+  <div class="extra content">
+    <a>
+      <i class="user icon"></i>
+      22 Friends
+    </a>
+  </div>
+</div>
