@@ -2,7 +2,11 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="field">
+    <div><%= image_tag @user.image.url, id: 'preview', class: 'icon' %></div>
+    <%= f.file_field :image, onchange: 'previewFileWithId(preview)', accept: 'image/*' %>
 
+  </div>
   <div class="field">
     <%= f.label :name, "ユーザ名" %><br />
     <%= f.text_field :name, autofocus: true %>

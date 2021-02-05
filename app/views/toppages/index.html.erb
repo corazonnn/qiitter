@@ -1,9 +1,7 @@
-<h1>トップページ</h1>
-
+<h1 class="ui header">トップページ</h1>
 <% if user_signed_in? %> <!-- ユーザーがログインしているか調べる -->
   <!-- ユーザーがログインしていた時の処理 -->
   <h2> 現在 <%= current_user.name %> さんがログインしています </h2>
-  <h4> メールアドレス： <%= current_user.email %> </h4>
   <!-- edit_user_registration -->
   <%= link_to "マイページ", users_show_path %>
   <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> <!-- ログアウトをする -->
@@ -13,3 +11,57 @@
   <%= link_to "ログイン", new_user_session_path, class: 'post' %> <!-- ログイン画面に移行する -->
   <%= link_to "新規登録", new_user_registration_path, class: 'post' %> <!-- 新規登録画面に移行する -->
 <% end %>
+<div class="ui divider"></div>
+<div class="ui stackable grid">
+  <div class="one wide column"></div>
+  <div class="six wide column">
+    
+
+
+
+
+    <div class="ui middle aligned divided list">
+      <div class="item">
+        <div class="right floated content">
+          <div class="ui button">フォロー</div>
+        </div>
+        <img class="ui avatar image" src="/images/avatar2/small/lena.png">
+        <div class="content">
+          Lena
+        </div>
+      </div>
+      <div class="item">
+        <div class="right floated content">
+          <div class="ui button">フォロー</div>
+        </div>
+        <img class="ui avatar image" src="/images/avatar2/small/lindsay.png">
+        <div class="content">
+          Lindsay
+        </div>
+      </div>
+      <div class="item">
+        <div class="right floated content">
+          <div class="ui button">フォロー</div>
+        </div>
+        <img class="ui avatar image" src="/images/avatar2/small/mark.png">
+        <div class="content">
+          Mark
+        </div>
+      </div>
+      <div class="item">
+        <div class="right floated content">
+          <div class="ui button">フォロー</div>
+        </div>
+        <img class="ui avatar image" src="/images/avatar2/small/molly.png">
+        <div class="content">
+          Molly
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+  <div class="nine wide column">こっちにグラフ</div>
+</div>
