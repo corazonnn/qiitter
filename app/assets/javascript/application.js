@@ -10,12 +10,13 @@ $(function(){
   $('.ui.dropdown').dropdown();
 })
 
+// 画像投稿のプレビュー機能の実装
 function previewFileWithId(id) {
    const target = this.event.target;
    const file = target.files[0];
    const reader  = new FileReader();
    reader.onloadend = function () {
-   preview.src = reader.result;
+     preview.src = reader.result;
    }
    if (file) {
    reader.readAsDataURL(file);
