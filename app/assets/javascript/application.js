@@ -19,8 +19,8 @@ function previewFileWithId(id) {
      preview.src = reader.result;
    }
    if (file) {
-   reader.readAsDataURL(file);
+     reader.readAsDataURL(file);
    } else {
-   preview.src = '';
+     preview.src = '';
    }
 }
