@@ -1,0 +1,62 @@
+<% if user_signed_in? %> <!-- ユーザーがログインしているか調べる -->
+  <!-- ユーザーがログインしていた時の処理 -->
+  <h2> 現在 <%= current_user.name %> さんがログインしています </h2>
+  <!-- edit_user_registration -->
+  <%= link_to "マイページ", users_show_path %>
+  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> <!-- ログアウトをする -->
+  <%= link_to('新規作成',new_product_path,{ class: "btn btn-light"})  %>
+<% else %>
+  <!-- ユーザーがログインしていなかった時の処理 -->
+  <h2> 現在ログインしていません </h2>
+  <%= link_to "ログイン", new_user_session_path, class: 'post' %> <!-- ログイン画面に移行する -->
+  <%= link_to "新規登録", new_user_registration_path, class: 'post' %> <!-- 新規登録画面に移行する -->
+<% end %>
+<div class="ui divider"></div>
+<div class="ui stackable grid">
+  <div class="one wide column"></div>
+  <div class="six wide column">
+
+    <% @products.each do |product| %>
+    <div class="ui large feed">
+      <div class="event">
+        <div class="label">
+          <i class="pencil icon"></i>
+        </div>
+        <div class="content">
+          <div class="summary">
+            <%= product.user.name %>
+            <div class="date">
+              3 days ago
+            </div>
+          </div>
+
+          <div class="extra text">
+            <%= link_to(product_path(product.id)) do %>
+              <%= product.title %>
+            <% end %>
+          </div>
+          <div class="meta">
+            <a class="like">
+              <i class="like icon"></i> 11 Likes
+            </a>
+            <a class="like">
+              <i class="like icon"></i> Follow
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+　　</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="nine wide column">こっちにグラフ</div>
