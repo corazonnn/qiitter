@@ -1,7 +1,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-
+//= require jquery_ujs
 // Loads all Semantic javascripts
 //= require semantic-ui
 
@@ -9,6 +9,11 @@
 $(function(){
   $('.ui.dropdown').dropdown();
 })
+// アコーディオン
+$('.ui.accordion').accordion();
+$('.ui.accordion').accordion('refresh');
+$('.ui.accordion').accordion('behavior', argumentOne, argumentTwo...);
+
 
 // 画像投稿のプレビュー機能の実装
 function previewFileWithId(id) {

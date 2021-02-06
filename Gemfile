@@ -70,3 +70,6 @@ gem 'semantic-ui-sass'
 #画像アップロード
 gem 'carrierwave'
 gem 'mini_magick'
+
+#エラーメッセージの日本語対応
+gem 'rails-i18n'

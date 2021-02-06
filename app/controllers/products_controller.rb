@@ -18,29 +18,29 @@ class ProductsController < ApplicationController
   def create
     @product = current_user.products.build(product_params)
     if @product.save
-      flash[:success] = '新規作成できました'
+      flash[:notice] = '新規作成できました'
       redirect_to @product
     else
-      flash[:danger] = '作成できませんでした'
+      flash.now[:alert] = '作成できませんでした'
       render :new
     end
   end
   def update #本人確認
    if @product.update(product_params)
-     flash[:success] = '正常に更新されました'
+     flash[:notice] = '正常に更新されました'
      redirect_to @product
    else
-     flash.now[:danger] = '更新に失敗しました'
+     flash.now[:alert] = '更新に失敗しました'
      render :edit
    end
   end
 
   def destroy #本人確認
     if @product.destroy
-      flash[:success] = '正常に削除できました'
+      flash[:notice] = '正常に削除できました'
       redirect_to root_path
     else
-      flash.now[:danger] = '削除に失敗しました'
+      flash.now[:alert] = '削除に失敗しました'
       render :show
     end
   end
