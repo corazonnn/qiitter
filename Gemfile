@@ -71,5 +71,9 @@ gem 'semantic-ui-sass'
 gem 'carrierwave'
 gem 'mini_magick'
 
+#エラーメッセージの日本語対応
+gem 'rails-i18n'
+
 #ページネーション機能
 gem 'kaminari'
+

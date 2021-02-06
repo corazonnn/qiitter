@@ -26,38 +26,38 @@
                 </div>
                 <div class="card-footer  text-muted">
                     <% if current_user==@product.user %>
-                      <!--もし現在のユーザーとこの操作をしている人が同じなら-->
-                      <div class="d-flex justify-content-around">
-                        <h5 class="mb-0">
+
+                      <div>
+                        <h5>
                           <%= link_to(edit_product_path(@product),class: " btn  pt-1 pb-1 pr-3 pl-3") do %>
-                            <h5 class="pb-0 mb-0" id="product-show-edit"><i class="far fa-edit"></i></h5>
-                            <small class="pt-0 mt-0" id="product-show-edit">編集</small>
+                            <h5><i class="far fa-edit"></i></h5>
+                            <small>編集</small>
                           <% end %>
                         </h5>
 
                         <h5 class="mb-0">
-                          <%= link_to(product_path(@product), method: :delete, data: { confirm: '本当に削除しますか？' } , class: "btn  pt-1 pb-1 pr-3 pl-3") do %>
-                            <h5 class="pb-0 mb-0" id="product-show-destroy"><i class="fas fa-trash-alt"></i></h5>
-                            <small class="pt-0 mt-0" id="product-show-destroy">削除</small>
+                          <%= link_to(product_path(@product), method: :delete, data: { confirm: '本当に削除しますか？' } , class: "btn") do %>
+                            <h5><i class="fas fa-trash-alt"></i></h5>
+                            <small>削除</small>
                           <% end %>
                         </h5>
 
-                        <h5  class="mb-0">
+                        <h5>
                           <%= link_to(root_path, { class: " btn pt-1 pb-1 pr-2 pl-2"}) do %>
-                            <h5 class="pb-0 mb-0"  id="product-show-index"><i class="fas fa-redo"></i></h5>
-                            <small class="pt-0 mt-0"  id="product-show-index">一覧に戻る</small>
+                            <h5><i class="fas fa-redo"></i></h5>
+                            <small>一覧に戻る</small>
                           <% end %>
                         </h5>
                       </div>
                     <% else %>
-                    <div class="d-flex justify-content-center">
-                      <h5  class="mb-0">
-                        <%= link_to(root_path, { class: " btn pt-1 pb-1 pr-2 pl-2"}) do %>
-                          <h5 class="pb-0 mb-0"  id="product-show-index"><i class="fas fa-redo"></i></h5>
-                          <small class="pt-0 mt-0"  id="product-show-index">一覧に戻る</small>
-                        <% end %>
-                      </h5>
-                    </div>
+                    　<div>
+                      <h5>
+                      　  <%= link_to(root_path, { class: " btn pt-1 pb-1 pr-2 pl-2"}) do %>
+                      　    <h5><i class="fas fa-redo"></i></h5>
+                      　    <small>一覧に戻る</small>
+                      　  <% end %>
+                      　</h5>
+                    　</div>
                     <% end %>
                 </div>
               </div>
