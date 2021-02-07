@@ -14,7 +14,7 @@
 <div class="ui divider"></div>
 <div class="ui stackable grid">
   <div class="one wide column"></div>
-  <div class="six wide column">
+  <div class="five wide column">
 
     <% @products.each do |product| %>
     <div class="ui large feed">
@@ -52,11 +52,32 @@
 
 
 
+  <div class="nine wide column">
+    <!--グラフ-->
+    <%= area_chart @data, width: "800px", height: "500px", xtitle: "作成日", ytitle: "アウトプット個数"  %>
+    <!--テーブル-->
+    <table class="ui inverted teal table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>タイトル</th>
+          <th>ボディ</th>
+          <th>作成日</th>
+        </tr>
+    　</thead>
+      <tbody>
+        <% count = 1 %>
+        <% @product.each do |product| %>
 
-
-
-
-
-
-
-  <div class="nine wide column">こっちにグラフ</div>
+          <tr>
+            <td><%= count %></td>
+            <td><%= product.title %></td>
+            <td><%= product.body.truncate(50) %></td>
+            <td><%= product.created_at.strftime("%Y.%m/%d") %></td>
+          </tr>
+          <% count+=1 %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="one wide column"></div>

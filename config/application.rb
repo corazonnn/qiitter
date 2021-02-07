@@ -19,5 +19,6 @@ module Qiitter
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.time_zone = 'Tokyo' #create_at,update_atを日本時間にするため。ちなみに上のi18nはエラーメッセージを日本語にするため。
   end
 end

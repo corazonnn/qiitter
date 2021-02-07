@@ -77,3 +77,5 @@ gem 'rails-i18n'
 #ページネーション機能
 gem 'kaminari'
 
+#グラフを描く
+gem 'chartkick'
