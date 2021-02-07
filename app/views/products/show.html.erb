@@ -1,68 +1,52 @@
-<article>
-  <div class="product_show">
-    <div class="container">
-      <div class="row">
-            <div class="col-md-6 mb-3 pt-5 text-center">
-              <div class="card mb-5">
-                <div class="card-header">
-                  <small class="border-bottom">タイトル</small>
-                  <%= link_to(product_path(@product),class: "link_color") do %>
-                    <%= @product.title %>
-                  <% end %>
-                  </div>
-                <div class="card-body">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <% if @product.user.image? %>
-                          <%= image_tag( @product.user.image.url,class: 'icon') %>
-                        <% else %>
-                          <%= image_tag("default_icon.png",class: 'icon-product-page')   %>
-                        <% end %>
-                        <h5 class="card-text mt-2"><%= @product.user.name  %></h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-footer  text-muted">
-                    <% if current_user==@product.user %>
-
-                      <div>
-                        <h5>
-                          <%= link_to(edit_product_path(@product),class: " btn  pt-1 pb-1 pr-3 pl-3") do %>
-                            <h5><i class="far fa-edit"></i></h5>
-                            <small>編集</small>
-                          <% end %>
-                        </h5>
-
-                        <h5 class="mb-0">
-                          <%= link_to(product_path(@product), method: :delete, data: { confirm: '本当に削除しますか？' } , class: "btn") do %>
-                            <h5><i class="fas fa-trash-alt"></i></h5>
-                            <small>削除</small>
-                          <% end %>
-                        </h5>
-
-                        <h5>
-                          <%= link_to(root_path, { class: " btn pt-1 pb-1 pr-2 pl-2"}) do %>
-                            <h5><i class="fas fa-redo"></i></h5>
-                            <small>一覧に戻る</small>
-                          <% end %>
-                        </h5>
-                      </div>
-                    <% else %>
-                    　<div>
-                      <h5>
-                      　  <%= link_to(root_path, { class: " btn pt-1 pb-1 pr-2 pl-2"}) do %>
-                      　    <h5><i class="fas fa-redo"></i></h5>
-                      　    <small>一覧に戻る</small>
-                      　  <% end %>
-                      　</h5>
-                    　</div>
-                    <% end %>
-                </div>
-              </div>
-            </div>
+<div class="container">
+  <div class="row">
+    <div class="ui card">
+      <div class="content">
+    <div class="right floated meta">
+      <% if current_user==@product.user %>
+        <div>
+          <%= link_to(edit_product_path(@product),class: "btn") do %>
+            <small>編集</small>
+          <% end %>
+          <%= link_to(product_path(@product), method: :delete, data: { confirm: '本当に削除しますか？' } , class: "btn") do %>
+            <small>削除</small>
+          <% end %>
+          <%= link_to(root_path, { class: "btn"}) do %>
+            <small>一覧に戻る</small>
+          <% end %>
+        </div>
+      <% else %>
+      　<div>
+        　<%= link_to(root_path, { class: "btn"}) do %>
+        　  <small>一覧に戻る</small>
+        　<% end %>
+      　</div>
+      <% end %>
+    </div>
+    <%= image_tag( @product.user.image.url,class: 'icon') %> <%= @product.user.name  %>
+      </div>
+      <div>
+    <small class="border-bottom">タイトル</small>
+    <%= link_to(product_path(@product)) do %>
+      <h5 class="text-center"><%= @product.title %></h5>
+    <% end %>
+      </div>
+      <h5 class="card-text text-center"></h5>
+      <h5 class="card-text mt-2"><%= @product.body  %></h5>
+      <div class="content">
+    <span class="right floated">
+      <i class="heart outline like icon"></i>
+      17 likes
+    </span>
+    <i class="comment icon"></i>
+    3 comments
+      </div>
+      <div class="extra content">
+    <div class="ui large transparent left icon input">
+      <i class="heart outline icon"></i>
+      <input type="text" placeholder="Add Comment...">
+    </div>
       </div>
     </div>
   </div>
-</article>
+</div>
