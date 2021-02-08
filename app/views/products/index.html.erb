@@ -54,30 +54,29 @@
 
   <div class="nine wide column">
     <!--グラフ-->
-    <%= area_chart @data, width: "800px", height: "500px", xtitle: "作成日", ytitle: "アウトプット個数"  %>
-    <!--テーブル-->
-    <table class="ui inverted teal table">
-      <thead>
-        <tr>
-          <th></th>
-          <th>タイトル</th>
-          <th>ボディ</th>
-          <th>作成日</th>
-        </tr>
-    　</thead>
-      <tbody>
-        <% count = 1 %>
-        <% @product.each do |product| %>
-
+    <% if @product.present? %>
+      <%= area_chart @data, width: "800px", height: "500px", xtitle: "作成日", ytitle: "アウトプット個数"  %>
+      <!--テーブル-->
+      <table class="ui inverted teal table">
+        <thead>
           <tr>
-            <td><%= count %></td>
-            <td><%= product.title %></td>
-            <td><%= product.body.truncate(50) %></td>
-            <td><%= product.created_at.strftime("%Y.%m/%d") %></td>
+            <th></th>
+            <th>タイトル</th>
+            <th>ボディ</th>
+            <th>作成日</th>
           </tr>
-          <% count+=1 %>
-        <% end %>
-      </tbody>
-    </table>
+      　</thead>
+        <tbody>
+          <% @product.each_with_index do |product, idx| %>
+            <tr>
+              <td><%= idx + 1 %></td>
+              <td><%= product.title %></td>
+              <td><%= product.body.truncate(50) %></td>
+              <td><%= product.created_at.strftime("%Y.%m/%d") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
   <div class="one wide column"></div>
