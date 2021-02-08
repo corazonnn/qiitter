@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:show, :new, :create, :destroy, :edit, :update] #ログイン済みかどうかの確認
   before_action :correct_user, only: [:destroy, :edit, :update] #本人確認
   def index
-    @products = Product.order(id: :desc) #.page(params[:page])ページネーション
+    @products = Product.order(id: :desc).page(params[:page]).per(5)
 
     if user_signed_in? #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
       @product = current_user.products.order(id: :asc)

@@ -1,18 +1,17 @@
 //= require jquery3
 //= require popper
-//= require bootstrap-sprockets
 //= require jquery_ujs
 // Loads all Semantic javascripts
 //= require semantic-ui
+
+$(document).on('turbolinks:load', function() { });
+
 
 // ドロップダウンを使用するためのコード
 $(function(){
   $('.ui.dropdown').dropdown();
 })
-// アコーディオン
-$('.ui.accordion').accordion();
-$('.ui.accordion').accordion('refresh');
-$('.ui.accordion').accordion('behavior', argumentOne, argumentTwo...);
+$('.dropdown').dropdown();
 
 
 // 画像投稿のプレビュー機能の実装
