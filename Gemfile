@@ -77,3 +77,6 @@ gem 'rails-i18n'
 #ページネーション機能
 gem 'kaminari'
 
+#Markdown記法
+gem 'redcarpet', '~> 2.3.0'
+gem 'coderay'

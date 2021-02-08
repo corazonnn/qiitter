@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="ui card">
+    <div class=" card">
       <div class="content">
     <div class="right floated meta">
       <% if current_user==@product.user %>
@@ -27,12 +27,11 @@
       </div>
       <div>
     <small class="border-bottom">タイトル</small>
-    <%= link_to(product_path(@product)) do %>
       <h5 class="text-center"><%= @product.title %></h5>
-    <% end %>
       </div>
       <h5 class="card-text text-center"></h5>
-      <h5 class="card-text mt-2"><%= @product.body  %></h5>
+
+      <h5 class="card-text mt-2"><%= markdown(@product.body).html_safe %></h5><!--Markdownヘルパーを使ってる-->
       <div class="content">
     <span class="right floated">
       <i class="heart outline like icon"></i>
