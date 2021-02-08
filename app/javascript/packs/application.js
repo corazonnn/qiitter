@@ -15,3 +15,6 @@ ActiveStorage.start()
 require('jquery')
 import 'bootstrap';
 import '../stylesheets/application';
+
+require("chartkick") //グラフ機能のため、gem chartkick
+require("chart.js")

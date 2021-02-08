@@ -77,6 +77,10 @@ gem 'rails-i18n'
 #ページネーション機能
 gem 'kaminari'
 
+#グラフを描く
+gem 'chartkick'
+
 #Markdown記法
 gem 'redcarpet', '~> 2.3.0'
 gem 'coderay'
+
