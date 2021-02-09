@@ -4,17 +4,15 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs"
-//import Turbolinks from "turbolinks"こいつがいるとリロードしないとjsが動かないからいらない〜〜〜〜〜〜
+import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-
-Rails.start()
-//Turbolinks.start()こいつがいるとリロードしないとjsが動かないからいらない〜〜〜〜〜〜
-ActiveStorage.start()
-
-require('jquery')
+Rails.start();
+Turbolinks.start();
+ActiveStorage.start();
+require('jquery');
 import '../stylesheets/application';
-
 //グラフ機能のため、gem chartkick
-require("chartkick")
-require("chart.js")
+require("chartkick");
+require("chart.js");
+import('test');
