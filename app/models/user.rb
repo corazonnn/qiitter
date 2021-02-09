@@ -8,4 +8,24 @@ class User < ApplicationRecord
   validates :name, presence: true
   mount_uploader :image, ImageUploader #画像アップロード機能
   has_many :products, dependent: :destroy #オブジェクトが削除されたとき、それに紐づくオブジェクトも同時に削除する
+  has_many :relationships #自分がフォローしている人への参照
+  has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id' #自分をフォローしている人(フォロワー)への参照
+  #これではあくまでRelationshipモデルへの参照であるため、userがRelationshipをいくつ持っているかしかわからない。つまり誰をフォローしているのか、その奥の情報がない。
+  has_many :followings, through: :relationships, source: :follow #Relationshipモデルのfollow_idを参照する
+  has_many :followers, through: :reverses_of_relationship, source: :user #Relationshipモデルのuser_idを参照する
+
+  def follow(other_user) #フォローするメソッド
+    unless self == other_user
+      self.relationships.find_or_create_by(follow_id: other_user.id)
+    end
+  end
+
+  def unfollow(other_user)#フォローを外すメソッド
+    relationship = self.relationships.find_by(follow_id: other_user.id)
+    relationship.destroy if relationship
+  end
+
+  def following?(other_user) #フォローしているのかの確認
+    self.followings.include?(other_user)
+  end
 end

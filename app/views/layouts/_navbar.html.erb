@@ -10,14 +10,14 @@
                 <div class="item">
                     <small>
                         <i class="th icon"></i>
-                        <%= link_to '新規作成',new_product_path %>
+                        <%= link_to '記事を書く',new_product_path %>
                     </small>
                 </div>
                 <% if user_signed_in? %>
                   <div class="item">
                       <small>
                           <i class="clipboard outline icon"></i>
-                          <%= link_to "マイページ", users_show_path %>
+                          <%= link_to "マイページ", user_path(current_user) %>
                       </small>
                   </div>
                   <div class="item">
