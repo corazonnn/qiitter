@@ -3,7 +3,6 @@ class ProductsController < ApplicationController
   before_action :correct_user, only: [:destroy, :edit, :update] #本人確認
   def index
     @products = Product.order(id: :desc).page(params[:page]).per(5)
-
     if user_signed_in? #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
       @product = current_user.products.order(id: :asc)
       if @product.present?
@@ -56,9 +55,9 @@ class ProductsController < ApplicationController
     end
   end
 
-  private  # ストロングパラメーター（予期しない値を変更されてしまう脆弱性を防ぐ機能）
+  private
 
-  def product_params
+  def product_params # ストロングパラメーター（予期しない値を変更されてしまう脆弱性を防ぐ機能）
    params.require(:product).permit(:title, :body)
   end
 

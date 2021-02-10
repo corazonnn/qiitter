@@ -36,9 +36,9 @@
             <a class="like">
               <i class="like icon"></i> 11 Likes
             </a>
-            <a class="like">
-              <i class="like icon"></i> Follow
-            </a>
+            <% if user_signed_in? %>
+              <%= render 'layouts/follow_button', user: product.user %>
+            <% end %>
           </div>
         </div>
       </div>
