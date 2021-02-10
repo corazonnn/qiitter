@@ -9,14 +9,18 @@ class User < ApplicationRecord
   has_many :products, dependent: :destroy #オブジェクトが削除されたとき、それに紐づくオブジェクトも同時に削除する
   has_many :likes, dependent: :destroy
   has_many :likings, through: :likes, source: :product #likesテーブルを通して、いいねしているproductを参照する
-  
+
   def like(product) #いいねする
-    self.likes.find_or_create_by(product_id: product.id)
+    if product.present?
+      self.likes.find_or_create_by(product_id: product.id)
+    end
   end
 
   def unlike(product) #いいねを外す
-    like = self.likes.find_by(product_id: product.id)
-    like.destroy if like
+    if product.present?
+      like = self.likes.find_by(product_id: product.id)
+      like.destroy if like
+    end
   end
   def liked?(product) #既にいいねしているのかの確認
     self.likings.include?(product)
