@@ -1,0 +1,29 @@
+<% @likings.each do |product| %>
+<div class="ui large feed">
+  <div class="event">
+    <div class="label">
+      <i class="pencil icon"></i>
+    </div>
+    <div class="content">
+      <div class="summary">
+        <%= product.user.name %>
+        <div class="date">
+          3 days ago
+        </div>
+      </div>
+
+      <div class="extra text">
+        <%= link_to(product_path(product.id)) do %>
+          <%= product.title %>
+        <% end %>
+      </div>
+      <div class="meta">
+        <%= render 'layouts/like_button', product: product %>
+        <a class="like">
+          <i class="like icon"></i> Follow
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

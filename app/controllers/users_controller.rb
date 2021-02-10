@@ -21,4 +21,8 @@ class UsersController < ApplicationController
     followings_counts(@user)
     followers_counts(@user)
   end
+  def likings
+    @user = User.find(params[:id])
+    @likings = @user.likings.page(params[:page])
+  end
 end

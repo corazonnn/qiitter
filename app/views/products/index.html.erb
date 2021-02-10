@@ -33,12 +33,14 @@
             <% end %>
           </div>
           <div class="meta">
-            <a class="like">
-              <i class="like icon"></i> 11 Likes
-            </a>
+
+            
+
             <% if user_signed_in? %>
+              <%= render 'layouts/like_button', product: product %>
               <%= render 'layouts/follow_button', user: product.user %>
             <% end %>
+
           </div>
         </div>
       </div>
