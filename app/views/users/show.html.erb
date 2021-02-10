@@ -15,9 +15,10 @@
     </button>
     <div class="ui relaxed grid">
      <div class="three column row">
+
        <div class="column"><div>投稿</div><div>40</div></div>
-       <div class="column"><div>フォロー</div><div>22</div></div>
-       <div class="column"><div>フォロワー</div><div>22</div></div>
+       <div class="column"><div><%= link_to "フォロー", followings_user_path(@user) %></div><div><%= @count_followings %></div></div>
+       <div class="column"><div><%= link_to "フォロワー", followers_user_path(@user) %></div><div><%= @count_followers %></div></div>
      </div>
     </div>
   <div class="extra content">

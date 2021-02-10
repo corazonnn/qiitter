@@ -1,0 +1,56 @@
+<div class="two wide column">
+</div>
+<div class="seven wide column">
+  <div class="ui card">
+    <div class="content">
+      <a class="header"><%= @user.name %></a>
+      <div class="meta">
+        <span class="date">Joined in 2013</span>
+      </div>
+      <div class="description">
+        email:<%= @user.email %>
+      </div>
+      <div class="description">
+          <%= image_tag @user.image.url,class: 'icon' %>
+      </div>
+      <button class="ui button">
+        <%= link_to "編集", edit_user_registration_path %>
+      </button>
+      <div class="ui relaxed grid">
+       <div class="three column row">
+
+         <div class="column"><div>投稿</div><div>40</div></div>
+         <div class="column"><div><%= link_to "フォロー", followings_user_path(@user) %></div><div><%= @count_followings %></div></div>
+         <div class="column"><div><%= link_to "フォロワー", followers_user_path(@user) %></div><div><%= @count_followers %></div></div>
+       </div>
+      </div>
+    <div class="extra content">
+      <a>
+        <i class="user icon"></i>
+        22 Friends
+      </a>
+    </div>
+  </div>
+</div>
+<% @followers.each do |follower| %>
+<div class="ui large feed">
+  <div class="event">
+    <div class="label">
+      <i class="pencil icon"></i>
+    </div>
+    <div class="content">
+      <div class="summary">
+        <%= follower.name %>
+        <div class="date">
+          3 days ago
+        </div>
+      </div>
+      <div class="meta">
+        <a class="like">
+          <i class="like icon"></i> 11 Likes
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
