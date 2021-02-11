@@ -2,6 +2,8 @@
 <div class="ui stackable grid">
   <div class="one wide column"></div>
   <div class="five wide column">
+
+
     <div class="ui vertical menu">
        <div class="ui dropdown item">
          Categories
@@ -13,6 +15,8 @@
          </div>
        </div>
      </div>
+
+
     <% @products.each do |product| %>
     <div class="ui large feed">
       <div class="event">
@@ -23,10 +27,14 @@
           <div class="summary">
             <%= product.user.name %>
             <div class="date">
-              3 days ago
+              <%= product.created_at.strftime("%Y.%m/%d") %>
+            </div>
+            <div class="date">
+              <% product.tags.each do |tag| %>
+              <div class="ui yellow label"><%= tag.tag_name %></div>
+              <% end %>
             </div>
           </div>
-
           <div class="extra text">
             <%= link_to(product_path(product.id)) do %>
               <%= product.title %>
@@ -64,7 +72,7 @@
           </tr>
       　</thead>
         <tbody>
-          <% @product.each_with_index do |product, idx| %>
+          <% @my_product.each_with_index do |product, idx| %>
             <tr>
               <td><%= idx + 1 %></td>
               <td><%= product.title %></td>
@@ -74,6 +82,8 @@
           <% end %>
         </tbody>
       </table>
+      <%= paginate @my_product %>
     <% end %>
+
   </div>
   <div class="one wide column"></div>
