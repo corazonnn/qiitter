@@ -10,13 +10,15 @@ class User < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :likings, through: :likes, source: :product #likesテーブルを通して、いいねしているproductを参照する
-  
+
   has_many :relationships #自分がフォローしている人への参照
   has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id' #自分をフォローしている人(フォロワー)への参照
   #これではあくまでRelationshipモデルへの参照であるため、userがRelationshipをいくつ持っているかしかわからない。つまり誰をフォローしているのか、その奥の情報がない。
   has_many :followings, through: :relationships, source: :follow #Relationshipモデルのfollow_idを参照する
   has_many :followers, through: :reverses_of_relationship, source: :user #Relationshipモデルのuser_idを参照する
-  
+
+  has_many :comments, dependent: :destroy
+
   def like(product) #いいねする
     if product.present?
       self.likes.find_or_create_by(product_id: product.id)
@@ -31,6 +33,7 @@ class User < ApplicationRecord
   end
   def liked?(product) #既にいいねしているのかの確認
     self.likings.include?(product)
+  end
 
   def follow(other_user) #フォローするメソッド
     unless self == other_user
@@ -45,6 +48,7 @@ class User < ApplicationRecord
 
   def following?(other_user) #フォローしているのかの確認
     self.followings.include?(other_user)
-
   end
+
+  
 end

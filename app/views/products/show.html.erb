@@ -41,11 +41,42 @@
     3 comments
       </div>
       <div class="extra content">
-    <div class="ui large transparent left icon input">
-      <i class="heart outline icon"></i>
-      <input type="text" placeholder="Add Comment...">
-    </div>
+    <%= form_with(model: [@product, @comment], method: :post, local: true) do |f| %>
+    <%= render 'layouts/error_messages', model: f.object %>
+      <div class="ui large transparent left icon input">
+        <div>
+          <%= f.hidden_field :product_id, :value => @product.id %>
+          <%= f.text_field :body, :placeholder => "コメントする..."%>
+          <div>
+            <%= f.submit '投稿する'%>
+          </div>
+        </div>
+      </div>
+    <% end %>
       </div>
     </div>
   </div>
 </div>
+<table class="ui inverted teal table">
+  <thead>
+    <tr>
+      <th>ユーザ名</th>
+      <th>ボディ</th>
+      <th>作成日</th>
+    </tr>
+　</thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.user.name %></td>
+        <td><%= comment.body %></td>
+        <td>
+          <%= comment.created_at.strftime("%Y.%m/%d") %>
+          <% if current_user.id == comment.user.id %>
+            <%=link_to "削除", product_comment_path(comment.product.id, comment.id), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -16,6 +16,8 @@ class ProductsController < ApplicationController
   end
   def show
     @product = Product.find(params[:id])
+    @comment = Comment.new
+    @comments = @product.comments.order(created_at: :desc)
   end
 
   def new
@@ -57,7 +59,7 @@ class ProductsController < ApplicationController
 
   private
 
-  def product_params # ストロングパラメーター（予期しない値を変更されてしまう脆弱性を防ぐ機能）
+  def product_params # ストロングパラメーター（予期しない値を変更されてしまう脆弱性を防ぐ機能）update,createなど値を変更する時。
    params.require(:product).permit(:title, :body)
   end
 

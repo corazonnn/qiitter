@@ -10,9 +10,12 @@ Rails.application.routes.draw do
       get :followers
     end
   end
-  resources :products
+  resources :products do
+    resources :comments, only: [:create, :destroy]
+  end
   resources :likes, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
