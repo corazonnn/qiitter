@@ -32,7 +32,7 @@
       <h5 class="card-text text-center"></h5>
       <div class="date">
         <% @product.tags.each do |tag| %>
-        <div class="ui yellow label"><%= tag.tag_name %></div>
+          <div class="ui yellow label"><%= tag.tag_name %></div>
         <% end %>
       </div>
       <h5 class="card-text mt-2"><%= markdown(@product.body).html_safe %></h5><!--Markdownヘルパーを使ってる-->

@@ -18,37 +18,37 @@
 
 
     <% @products.each do |product| %>
-    <div class="ui large feed">
-      <div class="event">
-        <div class="label">
-          <i class="pencil icon"></i>
-        </div>
-        <div class="content">
-          <div class="summary">
-            <%= product.user.name %>
-            <div class="date">
-              <%= product.created_at.strftime("%Y.%m/%d") %>
+      <div class="ui large feed">
+        <div class="event">
+          <div class="label">
+            <i class="pencil icon"></i>
+          </div>
+          <div class="content">
+            <div class="summary">
+              <%= product.user.name %>
+              <div class="date">
+                <%= product.created_at.strftime("%Y.%m/%d") %>
+              </div>
+              <div class="date">
+                <% product.tags.each do |tag| %>
+                <div class="ui yellow label"><%= tag.tag_name %></div>
+                <% end %>
+              </div>
             </div>
-            <div class="date">
-              <% product.tags.each do |tag| %>
-              <div class="ui yellow label"><%= tag.tag_name %></div>
-              <% end %>
+            <div class="extra text">
+              <%= link_to(product_path(product.id)) do %>
+                <%= product.title %>
+                <% end %>
+              </div>
+              <div class="meta">
+                <% if user_signed_in? %>
+                <%= render 'layouts/like_button', product: product %>
+                <%= render 'layouts/follow_button', user: product.user %>
+                <% end %>
+              </div>
             </div>
           </div>
-          <div class="extra text">
-            <%= link_to(product_path(product.id)) do %>
-              <%= product.title %>
-            <% end %>
-          </div>
-          <div class="meta">
-            <% if user_signed_in? %>
-              <%= render 'layouts/like_button', product: product %>
-              <%= render 'layouts/follow_button', user: product.user %>
-            <% end %>
-          </div>
         </div>
-      </div>
-    </div>
     <% end %>
     <%= paginate @products %>
 　　</div>
@@ -84,6 +84,5 @@
       </table>
       <%= paginate @my_product %>
     <% end %>
-
   </div>
   <div class="one wide column"></div>

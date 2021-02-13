@@ -3,42 +3,42 @@
   編集
 </h2>
 <%= form_with(model: @product, method: :put, local: true, class: "ui form") do |f| %>
-<%= render 'layouts/error_messages', model: f.object %>
-    <div class="inline fields">
-      <div class="three wide field"></div>
-      <div class="eleven wide field">
-        <%= f.text_field :title, :placeholder => "タイトル" %>
-      </div>
-      <div class="two wide field"></div>
+  <%= render 'layouts/error_messages', model: f.object %>
+  <div class="inline fields">
+    <div class="three wide field"></div>
+    <div class="eleven wide field">
+      <%= f.text_field :title, :placeholder => "タイトル" %>
     </div>
-    <div class="inline fields">
-      <div class="three wide field"></div>
-      <div class="eleven wide field">
-        <%= f.text_field :tag_name, :placeholder => ",(カンマ)で区切ってください.例)AWS,Ruby,HTML" %>
-      </div>
-      <div class="two wide field"></div>
+    <div class="two wide field"></div>
+  </div>
+  <div class="inline fields">
+    <div class="three wide field"></div>
+    <div class="eleven wide field">
+      <%= f.text_field :tag_name, :placeholder => ",(カンマ)で区切ってください.例)AWS,Ruby,HTML" %>
     </div>
+    <div class="two wide field"></div>
+  </div>
 
-    <div class="inline fields">
-      <div class="three wide field"></div>
-      <div class="eleven wide field">
-        <p>Markdownについて知りたい方は<a href="https://qiita.com/kamorits/items/6f342da395ad57468ae3">こちら</a></p>
-      </div>
-      <div class="two wide field"></div>
+  <div class="inline fields">
+    <div class="three wide field"></div>
+    <div class="eleven wide field">
+      <p>Markdownについて知りたい方は<a href="https://qiita.com/kamorits/items/6f342da395ad57468ae3">こちら</a></p>
     </div>
+    <div class="two wide field"></div>
+  </div>
 
-    <div class="inline fields">
+  <div class="inline fields">
       <div class="three wide field"></div>
       <div class="eleven wide field">
         <%= f.text_area :body, :placeholder => "ソースコード(Markdown対応しています)" %>
       </div>
       <div class="two wide field"></div>
-    </div>
-    <div class="inline fields">
-      <div class="seven wide field"></div>
-      <div class="two wide field">
+  </div>
+  <div class="inline fields">
+    <div class="seven wide field"></div>
+    <div class="two wide field">
       <%= f.submit '更新',class: "ui primary button"%>
-      </div>
-      <div class="seven wide field"></div>
     </div>
+    <div class="seven wide field"></div>
+  </div>
 <% end %>
