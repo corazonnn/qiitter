@@ -15,4 +15,14 @@ class ApplicationController < ActionController::Base
   def followers_counts(user) #特定のuserのフォロワーを数える。
     @count_followers = user.followers.count
   end
+  def sort_change(keyword)
+    if keyword == "new" || keyword == nil
+      @products = Product.order(id: :desc).page(params[:page]).per(7)
+    elsif keyword == "old"
+      @products = Product.order(id: :asc).page(params[:page]).per(7)
+    elsif keyword == "like"
+      products = Product.includes(:likes).sort {|a,b| b.likes.size <=> a.likes.size}#Productの内likesがあるものの中からいいねの多い順に並び替える
+      @products = Kaminari.paginate_array(products).page(params[:page]).per(7)
+    end
+  end
 end

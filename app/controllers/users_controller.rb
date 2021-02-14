@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show, :followings, :followers] #ログイン済みかどうかの確認
   def show
-    @user = current_user
+    @user = User.find(params[:id])
     products_counts(@user)#application.controlersの中にメソッドがある
     followings_counts(@user)
     followers_counts(@user)

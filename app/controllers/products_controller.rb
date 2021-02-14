@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   def index
     @products = Product.order(id: :desc).page(params[:page]).per(5)
     @tag_list = Tag.all
+    #グラフの作成
     if user_signed_in? #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
       @my_product = current_user.products.order(id: :asc).page(params[:page]).per(7)
       @product = current_user.products.order(id: :asc)
@@ -60,6 +61,22 @@ class ProductsController < ApplicationController
     else
       flash.now[:alert] = '削除に失敗しました'
       render :show
+    end
+  end
+  def search
+    @sort_keyword = params[:keyword]
+    sort_change(@sort_keyword)
+    @tag_list = Tag.all
+    #グラフの作成
+    if user_signed_in? #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
+      @my_product = current_user.products.order(id: :asc).page(params[:page]).per(7)
+      @product = current_user.products.order(id: :asc)
+      if @product.present?
+        @data = []
+        @product.each_with_index do |product, idx|
+          @data.push [product.created_at.to_s(:datetime_jp), idx + 1]
+        end
+      end
     end
   end
 
