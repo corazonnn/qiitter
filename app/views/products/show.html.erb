@@ -1,82 +1,126 @@
-<div class="container">
-  <div class="row">
-    <div class=" card">
-      <div class="content">
-    <div class="right floated meta">
-      <% if current_user==@product.user %>
-        <div>
-          <%= link_to(edit_product_path(@product),class: "btn") do %>
-            <small>編集</small>
-          <% end %>
-          <%= link_to(product_path(@product), method: :delete, data: { confirm: '本当に削除しますか？' } , class: "btn") do %>
-            <small>削除</small>
-          <% end %>
-          <%= link_to(root_path, { class: "btn"}) do %>
-            <small>一覧に戻る</small>
-          <% end %>
-        </div>
-      <% else %>
-      　<div>
-        　<%= link_to(root_path, { class: "btn"}) do %>
-        　  <small>一覧に戻る</small>
-        　<% end %>
-      　</div>
-      <% end %>
-    </div>
-    <%= image_tag( @product.user.image.url,class: 'icon') %> <%= @product.user.name  %>
-      </div>
-      <div>
-    <small class="border-bottom">タイトル</small>
-      <h5 class="text-center"><%= @product.title %></h5>
-      </div>
-      <h5 class="card-text text-center"></h5>
+  <div class="ui horizontal divider">
+    詳細ページ
+</div>
+<div class="ui stackable grid">
+    <div class="one wide column"><p></div>
+    <div class="four wide column">
 
-      <h5 class="card-text mt-2"><%= markdown(@product.body).html_safe %></h5><!--Markdownヘルパーを使ってる-->
-      <div class="content">
-    <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-    <i class="comment icon"></i>
-    3 comments
-      </div>
-      <div class="extra content">
-    <%= form_with(model: [@product, @comment], method: :post, local: true) do |f| %>
-    <%= render 'layouts/error_messages', model: f.object %>
-      <div class="ui large transparent left icon input">
-        <div>
-          <%= f.hidden_field :product_id, :value => @product.id %>
-          <%= f.text_field :body, :placeholder => "コメントする..."%>
-          <div>
-            <%= f.submit '投稿する'%>
+      <div class="side active">
+        <div class="ui card">
+          <div class="image">
+            <%= image_tag( @product.user.image.url,class: 'icon') %>
+          </div>
+          <div class="content">
+            <a class="header"><%= @product.user.name  %></a>
+            <div class="meta">
+              <span class="date">Joined in 2014</span>
+            </div>
+            <div class="description">
+              <div class="ui tiny statistics">
+                <div class="statistic">
+                  <div class="value">
+                    0
+                  </div>
+                  <div class="label">
+                    投稿
+                  </div>
+                </div>
+                <div class="statistic">
+                  <div class="value">
+                    0
+                  </div>
+                  <div class="label">
+                    フォロー
+                  </div>
+                </div>
+                <div class="statistic">
+                  <div class="value">
+                    2
+                  </div>
+                  <div class="label">
+                    フォロワー
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="extra content">
+            <button class="ui primary button">フォロー</button>
           </div>
         </div>
       </div>
-    <% end %>
-      </div>
+
+      <%= form_with(model: [@product, @comment], method: :post, local: true,class: "ui form") do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+        <div class="field">
+          <div>
+            <%= f.hidden_field :product_id, :value => @product.id %>
+            <%= f.text_field :body, :placeholder => "コメントする..."%>
+            <div>
+              <%= f.submit '投稿する'%>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-  </div>
-</div>
-<table class="ui inverted teal table">
-  <thead>
-    <tr>
-      <th>ユーザ名</th>
-      <th>ボディ</th>
-      <th>作成日</th>
-    </tr>
-　</thead>
-  <tbody>
-    <% @comments.each do |comment| %>
-      <tr>
-        <td><%= comment.user.name %></td>
-        <td><%= comment.body %></td>
-        <td>
-          <%= comment.created_at.strftime("%Y.%m/%d") %>
-          <% if current_user.id == comment.user.id %>
-            <%=link_to "削除", product_comment_path(comment.product.id, comment.id), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+
+    <div class="ten wide column">
+      <h3 class="ui top attached header">
+        <%= @product.title %>
+        <% if current_user==@product.user %>
+          <div>
+            <%= link_to(edit_product_path(@product),class: "btn") do %>
+              <small>編集</small>
+            <% end %>
+            <%= link_to(product_path(@product), method: :delete, data: { confirm: '本当に削除しますか？' } , class: "btn") do %>
+              <small>削除</small>
+            <% end %>
+            <%= link_to(root_path, { class: "btn"}) do %>
+              <small>一覧に戻る</small>
+            <% end %>
+          </div>
+        <% else %>
+        　<div>
+          　<%= link_to(root_path, { class: "btn"}) do %>
+          　  <small>一覧に戻る</small>
+          　<% end %>
+        　</div>
+        <% end %>
+        <% @product.tags.each do |tag| %>
+          <div class="ui violet label"><%= tag.tag_name %></div>
+        <% end %>
+
+      </h3>
+
+      <div class="ui attached segment" style="background-color: #f0fff0;color: #000;">
+
+          <%= markdown(@product.body).html_safe %><!--Markdownヘルパーを使ってる-->
+
+
+      </div>
+      <table class="ui inverted teal table">
+        <thead>
+          <tr>
+            <th>ユーザ名</th>
+            <th>ボディ</th>
+            <th>作成日</th>
+          </tr>
+      　</thead>
+        <tbody>
+          <% @comments.each do |comment| %>
+            <tr>
+              <td><%= comment.user.name %></td>
+              <td><%= comment.body %></td>
+              <td>
+                <%= comment.created_at.strftime("%Y.%m/%d") %>
+                <% if current_user.id == comment.user.id %>
+                  <%=link_to "削除", product_comment_path(comment.product.id, comment.id), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+                <% end %>
+              </td>
+            </tr>
           <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tbody>
+      </table>
+    </div>
+    <div class="one wide column"><p></div>
+</div>

@@ -3,7 +3,9 @@ class ProductsController < ApplicationController
   before_action :correct_user, only: [:destroy, :edit, :update] #本人確認
   def index
     @products = Product.order(id: :desc).page(params[:page]).per(5)
+    @tag_list = Tag.all
     if user_signed_in? #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
+      @my_product = current_user.products.order(id: :asc).page(params[:page]).per(7)
       @product = current_user.products.order(id: :asc)
       if @product.present?
         @data = []
@@ -12,12 +14,12 @@ class ProductsController < ApplicationController
         end
       end
     end #@data = [['2019-06-01', 100], ['2019-06-02', 200], ['2019-06-03', 150]]
-
   end
   def show
     @product = Product.find(params[:id])
     @comment = Comment.new
     @comments = @product.comments.order(created_at: :desc)
+    @product_tags = @product.tags
   end
 
   def new
@@ -29,7 +31,9 @@ class ProductsController < ApplicationController
 
   def create
     @product = current_user.products.build(product_params)
+    tag_list = params[:product][:tag_name].split(",")
     if @product.save
+      @product.save_tag(tag_list) #save_tagメソッドはproductモデルファイルの中
       flash[:notice] = '新規作成できました'
       redirect_to @product
     else
@@ -38,7 +42,9 @@ class ProductsController < ApplicationController
     end
   end
   def update #本人確認
+    tag_list = params[:product][:tag_name].split(",")
    if @product.update(product_params)
+     @product.save_tag(tag_list) #save_tagメソッドはproductモデルファイルの中
      flash[:notice] = '正常に更新されました'
      redirect_to @product
    else
