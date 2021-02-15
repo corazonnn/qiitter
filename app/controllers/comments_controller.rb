@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(comment_params)#commentに必要な情報はuser_id,product_id,body。formから後者２つが送られてくるからあとはcurrent_userのidが欲しいだけ
     if @comment.save
       flash[:notice] = 'コメントを投稿しました'
+      @product.create_notification_comment(current_user, @comment.id)
       redirect_back(fallback_location: root_path)
     else
       flash[:alert] = 'コメント投稿に失敗しました'

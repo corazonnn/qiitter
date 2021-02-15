@@ -25,4 +25,5 @@ class ApplicationController < ActionController::Base
       @products = Kaminari.paginate_array(products).page(params[:page]).per(7)
     end
   end
+  
 end
