@@ -6,7 +6,7 @@ class NotificationsController < ApplicationController
     end
   end
   def destroy
-    @notifications =current_user.passive_notifications.destroy_all #この時点でpassive_notificaitonsはあるの？
+    @notifications = current_user.passive_notifications.destroy_all #この時点でpassive_notificaitonsはあるの？
     redirect_to notifications_path
   end
 
