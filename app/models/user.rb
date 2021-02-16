@@ -19,6 +19,10 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+
+  has_many :active_notifications, class_name: "Notification", foreign_key:"visitor_id", dependent: :destroy #送った通知の参照
+  has_many :passive_notifications, class_name: "Notification", foreign_key:"visited_id", dependent: :destroy #送られた通知の参照
+
   def like(product) #いいねする
     if product.present?
       self.likes.find_or_create_by(product_id: product.id)
@@ -50,5 +54,12 @@ class User < ApplicationRecord
     self.followings.include?(other_user)
   end
 
-  
+  def create_notification_follow(current_user)
+    notification = current_user.active_notifications.new(
+      visited_id: id,
+      action: 'follow'
+    )
+    notification.save if notification.valid?
+  end
+
 end
