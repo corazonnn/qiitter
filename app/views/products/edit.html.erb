@@ -1,7 +1,9 @@
-<h2 class="ui center aligned header">
-  <i class="edit icon"></i>
-  編集
-</h2>
+<div class="jumbotron jumbotron-extend-show" >
+  <div class="container-fluid jumbotron-container">
+    <h1 style="color: #fff;font-size: 3.5em;">Qiitter</h1>
+    <h3 style="color: #fff;font-size: 1.5em;margin-top:0;" >プロダクト編集</h3>
+  </div>
+</div>
 <%= form_with(model: @product, method: :put, local: true, class: "ui form") do |f| %>
   <%= render 'layouts/error_messages', model: f.object %>
   <div class="inline fields">

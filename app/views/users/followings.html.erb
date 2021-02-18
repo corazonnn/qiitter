@@ -1,58 +1,91 @@
-<div class="two wide column">
-</div>
-<div class="seven wide column">
-  <div class="ui card">
-    <div class="content">
-      <a class="header"><%= @user.name %></a>
-      <div class="meta">
-        <span class="date">Joined in 2013</span>
-      </div>
-      <div class="description">
-        email:<%= @user.email %>
-      </div>
-      <div class="description">
-          <%= image_tag @user.image.url,class: 'icon' %>
-      </div>
-      <button class="ui button">
-        <%= link_to "編集", edit_user_registration_path %>
-      </button>
-      <div class="ui relaxed grid">
-       <div class="three column row">
-
-         <div class="column"><div>投稿</div><div>40</div></div>
-         <div class="column"><div><%= link_to "フォロー", followings_user_path(@user) %></div><div><%= @count_followings %></div></div>
-         <div class="column"><div><%= link_to "フォロワー", followers_user_path(@user) %></div><div><%= @count_followers %></div></div>
-       </div>
-      </div>
-    <div class="extra content">
-      <a>
-        <i class="user icon"></i>
-        22 Friends
-      </a>
-    </div>
+<div class="jumbotron jumbotron-extend-show" >
+  <div class="container-fluid jumbotron-container">
+    <h1 style="color: #fff;font-size: 3.5em;">Qiitter</h1>
+    <h3 style="color: #fff;font-size: 1.5em;margin-top:0;" >〜 今までのストーリー 〜</h3>
   </div>
 </div>
-<div class="seven wide column">
-  <% @followings.each do |following| %>
-  <div class="ui large feed">
-    <div class="event">
-      <div class="label">
-        <i class="pencil icon"></i>
-      </div>
-      <div class="content">
-        <div class="summary">
-          <%= following.name %>
-          <div class="date">
-          3 days ago
+
+<div class="ui stackable grid">
+    <div class="two wide column"><p></div>
+    <div class="four wide column">
+
+      <div class="side active">
+        <div class="ui card">
+          <div class="image">
+            <%= image_tag @user.image.url,class: 'icon' %>
+          </div>
+          <div class="content">
+            <a class="header"><%= @user.name %></a>
+            <div class="description">
+              <div class="ui tiny statistics">
+                <div class="statistic">
+                  <div class="value">
+                    <%= @count_products %>
+                  </div>
+                  <div class="label">
+                    投稿
+                  </div>
+                </div>
+                <div class="statistic">
+                  <div class="value">
+                    <%= @count_followings %>
+                  </div>
+                  <div class="label">
+                    <%= link_to "フォロー", followings_user_path(@user) %>
+                  </div>
+                </div>
+                <div class="statistic">
+                  <div class="value">
+                    <%= @count_followers %>
+                  </div>
+                  <div class="label">
+                    <%= link_to "フォロワー", followers_user_path(@user) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="extra content">
+            <% if current_user == @user%>
+              <button class="fluid ui yellow button"><%= link_to "プロフィールを編集", edit_user_registration_path %></button>
+            <% else %>
+              <button class="ui primary button">フォロー</button>
+            <% end %>
           </div>
         </div>
-        <div class="meta">
-          <a class="like">
-            <i class="like icon"></i> 11 Likes
-          </a>
+      </div>
+    </div>
+
+    <div class="eight wide column">
+      <div class="ui secondary pointing menu" style="background-color:#fff;margin-bottom:0;">
+        <%= link_to '可視化による分析',user_path(@user), class: "item" %>
+        <%= link_to "フォロー中", followings_user_path(@user), class: "active item" %>
+        <%= link_to "フォロワー", followers_user_path(@user), class: "item" %>
+      </div>
+      <div class="ui relaxed grid">
+        <div class="three column row">
+          <% @followings.each do |following| %>
+            <div class="column" style="margin-top:1rem;">
+              <div class="ui cards">
+                <div class="card">
+                  <div class="content">
+                    <%= image_tag following.image.url,class: 'icon' %>
+                    <div class="header">
+                      <%= following.name %>
+                    </div>
+                    <div class="meta">
+                      New Member
+                    </div>
+                  </div>
+                  <div class="extra content">
+                    <%= render 'layouts/follow_button', user: following %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
-  </div>
-  <% end %>
+    <div class="two wide column"></div>
 </div>

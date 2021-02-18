@@ -1,20 +1,12 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:show, :new, :create, :destroy, :edit, :update] #ログイン済みかどうかの確認
   before_action :correct_user, only: [:destroy, :edit, :update] #本人確認
+  before_action :create_graph, only: [:index, :search] #棒グラフの作成
+  before_action :create_pie_graph, only: [:search, :graph, :index] #円グラフ
+  before_action :all_users_products, only: [:index, :search, :graph]
   def index
     @products = Product.order(id: :desc).page(params[:page]).per(5)
-    @tag_list = Tag.all
     #グラフの作成
-    if user_signed_in? #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
-      @my_product = current_user.products.order(id: :asc).page(params[:page]).per(7)
-      @product = current_user.products.order(id: :asc)
-      if @product.present?
-        @data = []
-        @product.each_with_index do |product, idx|
-          @data.push [product.created_at.to_s(:datetime_jp), idx + 1]
-        end
-      end
-    end #@data = [['2019-06-01', 100], ['2019-06-02', 200], ['2019-06-03', 150]]
   end
   def show
     @product = Product.find(params[:id])
@@ -66,18 +58,11 @@ class ProductsController < ApplicationController
   def search
     @sort_keyword = params[:keyword]
     sort_change(@sort_keyword)
-    @tag_list = Tag.all
     #グラフの作成
-    if user_signed_in? #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
-      @my_product = current_user.products.order(id: :asc).page(params[:page]).per(7)
-      @product = current_user.products.order(id: :asc)
-      if @product.present?
-        @data = []
-        @product.each_with_index do |product, idx|
-          @data.push [product.created_at.to_s(:datetime_jp), idx + 1]
-        end
-      end
-    end
+  end
+  def graph
+    @products = Product.order(id: :desc).page(params[:page]).per(5)
+    #グラフの作成
   end
 
   private
@@ -91,5 +76,10 @@ class ProductsController < ApplicationController
     unless @product
       redirect_to root_url
     end
+  end
+
+  def all_users_products
+    @all_products = Product.all.count
+    @all_users = User.all.count
   end
 end

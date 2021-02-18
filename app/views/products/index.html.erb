@@ -1,9 +1,16 @@
+<%= render 'layouts/toppage' %>
+
 <div class="ui stackable grid">
   <div class="one wide column"></div>
   <div class="five wide column">
-
-
-    <div class="ui vertical menu">
+    <div style="background-color:#fff;">
+      <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+        <i class="chart line icon" style="float:left;"></i>トレンド
+        <div class="sub header">
+          最近の投稿
+        </div>
+      </h3>
+    <div class="ui vertical menu" >
        <div class="ui dropdown item">
          絞り込み検索
          <i class="dropdown icon"></i>
@@ -15,77 +22,74 @@
        </div>
      </div>
 
+     <% @products.each do |product| %>
+     <div class="ui comments" style="padding-left:10px;">
+       <div class="comment">
+         <a class="avatar">
+           <%= image_tag( product.user.image.url) %>
+         </a>
+         <div class="content">
+           <a class="author"><%= product.user.name %></a>
+           <div class="metadata">
+             <div class="date"><%= product.created_at.strftime("%Y.%m/%d") %></div>
 
-    <% @products.each do |product| %>
-      <div class="ui large feed">
-        <div class="event">
-          <div class="label">
-            <%= image_tag( product.user.image.url,class: 'icon') %>
-          </div>
-          <div class="content">
-            <div class="summary">
-              <%= product.user.name %>
-              <div class="date">
-                <%= product.created_at.strftime("%Y.%m/%d") %>
-              </div>
-              <div class="date">
-                <% product.tags.each do |tag| %>
-                <div class="ui yellow label"><%= tag.tag_name %></div>
-                <% end %>
-              </div>
-            </div>
-            <div class="extra text">
-              <%= link_to(product_path(product.id)) do %>
-                <%= product.title %>
-                <% end %>
-              </div>
-              <div class="meta">
-                <% if user_signed_in? %>
-                <%= render 'layouts/like_button', product: product %>
-                <%= render 'layouts/follow_button', user: product.user %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-    <% end %>
-    <%= paginate @products %>
+           </div>
+           <div class="text">
+             <%= link_to(product_path(product.id)) do %>
+               <%= product.title %>
+             <% end %>
+           </div>
+           <div class="extra text">
+             <i class="tags icon"></i>
+             <% product.tags.each do |tag| %>
+               <%= tag.tag_name %>,
+             <% end %>
+           </div>
+           <% if user_signed_in? %>
+           <div class="actions">
+             <a>
+               <%= render 'layouts/like_button', product: product %>
+             </a>
+             <a>
+               <%= render 'layouts/follow_button', user: product.user %>
+             </a>
+             <div class="ui divider"></div>
+           </div>
+           <% end %>
+         </div>
+       </div>
+     </div>
+     <% end %>
+     <%= paginate @products %>
+     </div>
 　　</div>
 
-
-
-
-
-  <div class="nine wide column">
-    <div class="ui two item menu">
-      <%= link_to 'グラフ(未完成)',new_product_path, class: "active item" %>
-      <%= link_to '全てのアウトプット(未完成)',new_product_path, class: "item" %>
+  <div class="eight wide column">
+      <div class="ui secondary pointing menu" style="background-color:#fff;margin-bottom:0;">
+        <%= link_to 'あなたのグラフ',new_product_path, class: "active item" %>
+        <%= link_to 'あなたの今までの投稿',graph_products_path, class: "item" %>
+      </div>
+      <!--グラフ-->
+      <% if @product.present? %>
+      <div style="background-color:#fff;padding-top:10px">
+        <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+          <i class="chart bar outline icon" style="float:left;"></i>あなたのストーリー
+          <div class="sub header">
+            今までの勉強の軌跡
+          </div>
+        </h3>
+        <%= area_chart @data, width: "700px", height: "500px", xtitle: "作成日", ytitle: "アウトプット個数"  %>
+        <div class="ui divider"></div>
+        <!--円グラフ-->
+        <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+          <i class="chart pie icon" style="float:left;"></i>あなたのタグの割合
+          <div class="sub header">
+            あなたは何に力を入れてきたのか
+          </div>
+        </h3>
+        <%= pie_chart @pie_data %>
+      </div>
+      <% end %>
     </div>
-    <!--グラフ-->
-    <% if @product.present? %>
-      <%= area_chart @data, width: "800px", height: "500px", xtitle: "作成日", ytitle: "アウトプット個数"  %>
-      <!--テーブル-->
-      <table class="ui inverted teal table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>タイトル</th>
-            <th>ボディ</th>
-            <th>作成日</th>
-          </tr>
-      　</thead>
-        <tbody>
-          <% @my_product.each_with_index do |product, idx| %>
-            <tr>
-              <td><%= idx + 1 %></td>
-              <td><%= product.title %></td>
-              <td><%= product.body.truncate(50) %></td>
-              <td><%= product.created_at.strftime("%Y.%m/%d") %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= paginate @my_product %>
-    <% end %>
   </div>
-  <div class="one wide column"></div>
+  <div class="two wide column"></div>

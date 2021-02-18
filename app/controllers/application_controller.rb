@@ -25,5 +25,37 @@ class ApplicationController < ActionController::Base
       @products = Kaminari.paginate_array(products).page(params[:page]).per(7)
     end
   end
-  
+  def create_graph #棒グラフ
+    if user_signed_in? #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
+      @my_product = current_user.products.order(id: :asc).page(params[:page]).per(7)
+      @product = current_user.products.order(id: :asc)
+      if @product.present?
+        @data = []
+        @product.each_with_index do |product, idx|
+          @data.push [product.created_at.to_s(:datetime_jp), idx + 1]
+        end
+      end
+    end #@data = [['2019-06-01', 100], ['2019-06-02', 200], ['2019-06-03', 150]]
+  end
+
+  def create_pie_graph #円グラフ
+    if user_signed_in?
+      @my_product = current_user.products.order(id: :desc).page(params[:page]).per(7)
+      products = current_user.products.all
+      pie_graph_data = []
+      @pie_data = {}
+      products.each do |product|
+        pie_graph_data << [product.tags.pluck(:tag_name)] #pie_graph_dataは[ [[]],[[]],[["Ruby","AWS"]],[["PHP","Python"]],[[]],[[]],[[]]]の状態
+      end
+      result = pie_graph_data.flatten #@resultは["AWS","PHP","Python","C","C++","Ruby"]#まだある
+      result.each do |res|
+        if @pie_data.has_key?(res)
+          val = @pie_data[res]
+          @pie_data.store(res, val + 1)
+        else
+          @pie_data.store(res, 1)#ないなら@pie_dataに追加
+        end
+      end
+    end
+  end
 end

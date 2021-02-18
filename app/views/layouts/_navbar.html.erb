@@ -1,4 +1,4 @@
-<div class="ui inverted large borderless fluid menu column">
+<div class="ui inverted large borderless fluid menu column" id="navbar">
     <a class="header item" href="/">Qiitter</a>
     <div class="right menu">
         <div class="ui dropdown item">
@@ -17,21 +17,18 @@
                   <div class="item">
                       <small>
                           <i class="clipboard outline icon"></i>
-
                           <%= link_to "いいね一覧", likings_user_path(current_user) %>
                       </small>
                   </div>
                   <div class="item">
                       <small>
-                          <i class="clipboard outline icon"></i>
-
+                          <i class="bell icon"></i>
                           <%= link_to "通知", notifications_path %>
                       </small>
                   </div>
                   <div class="item">
                       <small>
                           <i class="clipboard outline icon"></i>
-
                           <%= link_to "マイページ", user_path(current_user) %>
                       </small>
                   </div>

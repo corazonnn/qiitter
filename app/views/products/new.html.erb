@@ -1,8 +1,10 @@
+<div class="jumbotron jumbotron-extend-show" >
+  <div class="container-fluid jumbotron-container">
+    <h1 style="color: #fff;font-size: 3.5em;">Qiitter</h1>
+    <h3 style="color: #fff;font-size: 1.5em;margin-top:0;" >〜<i class="th icon"></i>新規作成〜</h3>
+  </div>
+</div>
 
-<h2 class="ui center aligned header">
-  <i class="th icon"></i>
-  新規作成
-</h2>
 <%= form_with(model: @product, method: :post, local: true, class: "ui form") do |f| %>
   <%= render 'layouts/error_messages', model: f.object %>
   <div class="inline fields">

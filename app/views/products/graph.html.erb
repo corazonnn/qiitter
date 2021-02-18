@@ -1,0 +1,115 @@
+<%= render 'layouts/toppage' %>
+
+<div class="ui stackable grid">
+  <div class="one wide column"></div>
+
+  <div class="five wide column">
+    <div style="background-color:#fff;">
+      <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+        <i class="chart line icon" style="float:left;"></i>トレンド
+        <div class="sub header">
+          最近の投稿
+        </div>
+      </h3>
+      <div class="ui vertical menu" >
+        <div class="ui dropdown item">
+          絞り込み検索
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <%= link_to "新しい順", search_products_path(keyword: "new"),class: "item"  %>
+            <%= link_to "古い順", search_products_path(keyword: "old"),class: "item"  %>
+            <%= link_to "人気順", search_products_path(keyword: "like"),class: "item" %>
+          </div>
+        </div>
+      </div>
+
+    <% @products.each do |product| %>
+      <div class="ui comments" style="padding-left:10px;">
+        <div class="comment">
+          <a class="avatar"><%= image_tag( product.user.image.url) %></a>
+          <div class="content">
+            <a class="author"><%= product.user.name %></a>
+            <div class="metadata">
+              <div class="date"><%= product.created_at.strftime("%Y.%m/%d") %></div>
+            </div>
+            <div class="text">
+              <%= link_to(product_path(product.id)) do %>
+                <%= product.title %>
+                <% end %>
+              </div>
+              <div class="extra text">
+                <i class="tags icon"></i>
+                <% product.tags.each do |tag| %>
+                <%= tag.tag_name %>,
+                <% end %>
+              </div>
+              <% if user_signed_in? %>
+              <div class="actions">
+                <a><%= render 'layouts/like_button', product: product %></a>
+                <a><%= render 'layouts/follow_button', user: product.user %></a>
+                <div class="ui divider"></div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+     <% end %>
+     <%= paginate @products %>
+   </div>
+　</div>
+
+  <div class="eight wide column">
+    <div class="ui secondary pointing menu" style="background-color:#fff;margin-bottom:0;">
+      <%= link_to 'あなたのグラフ',root_path, class: "item" %>
+      <%= link_to 'あなたの今までの投稿',graph_products_path, class: "active item" %>
+    </div>
+    <!--グラフ-->
+    <% if @my_product.present? %>
+    <div style="background-color:#fff;padding-top:10px">
+      <!--円グラフ-->
+      <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+        <i class="chart pie icon" style="float:left;"></i>あなたのタグの割合
+        <div class="sub header">
+          あなたは何に力を入れてきたのか
+        </div>
+      </h3>
+      <%= pie_chart @pie_data %>
+      <div class="ui divider"></div>
+      <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+        <i class="chart bar outline icon" style="float:left;"></i>あなたのストーリー
+        <div class="sub header">
+          今までの勉強の軌跡
+        </div>
+      </h3>
+      <table class="ui celled striped table">
+        <thead>
+          <tr><th colspan="3">
+            ALL PRODUCT
+          </th>
+        </tr></thead>
+        <tbody>
+          <% @my_product.each_with_index do |product, idx| %>
+          <tr>
+            <td class="collapsing">
+              <i class="file outline icon"></i>
+              <%= link_to(product_path(product.id)) do %>
+                <%= product.title %>
+                <% end %>
+              </td>
+              <td>
+                <i class="tags icon"></i>
+                <% product.tags.each do |tag| %>
+                <%= tag.tag_name %>,
+                <% end %>
+              </td>
+              <td class="right aligned collapsing"><%= product.created_at.strftime("%Y.%m/%d") %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= paginate @my_product %>
+        <% end %>
+      </div>
+    </div>
+    <div class="two wide column"></div>
+</div>

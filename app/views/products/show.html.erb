@@ -1,10 +1,12 @@
-  <div class="ui horizontal divider">
-    詳細ページ
+<div class="jumbotron jumbotron-extend-show" >
+  <div class="container-fluid jumbotron-container">
+    <h1 style="color: #fff;font-size: 3.5em;">Qiitter</h1>
+    <h3 style="color: #fff;font-size: 1.5em;margin-top:0;" >プロダクト詳細ページ</h3>
+  </div>
 </div>
 <div class="ui stackable grid">
-    <div class="one wide column"><p></div>
+    <div class="one wide column"></div>
     <div class="four wide column">
-
       <div class="side active">
         <div class="ui card">
           <div class="image">
@@ -45,82 +47,94 @@
             </div>
           </div>
           <div class="extra content">
-            <button class="ui primary button">フォロー</button>
+            <%= render 'layouts/follow_button', user: @product.user %>
           </div>
         </div>
       </div>
-
-      <%= form_with(model: [@product, @comment], method: :post, local: true,class: "ui form") do |f| %>
-      <%= render 'layouts/error_messages', model: f.object %>
-        <div class="field">
-          <div>
-            <%= f.hidden_field :product_id, :value => @product.id %>
-            <%= f.text_field :body, :placeholder => "コメントする..."%>
-            <div>
-              <%= f.submit '投稿する'%>
-            </div>
-          </div>
-        </div>
-      <% end %>
     </div>
 
     <div class="ten wide column">
       <h3 class="ui top attached header">
-        <%= @product.title %>
-        <% if current_user==@product.user %>
-          <div>
-            <%= link_to(edit_product_path(@product),class: "btn") do %>
-              <small>編集</small>
-            <% end %>
-            <%= link_to(product_path(@product), method: :delete, data: { confirm: '本当に削除しますか？' } , class: "btn") do %>
-              <small>削除</small>
-            <% end %>
-            <%= link_to(root_path, { class: "btn"}) do %>
-              <small>一覧に戻る</small>
-            <% end %>
-          </div>
-        <% else %>
-        　<div>
-          　<%= link_to(root_path, { class: "btn"}) do %>
-          　  <small>一覧に戻る</small>
-          　<% end %>
-        　</div>
-        <% end %>
-        <% @product.tags.each do |tag| %>
-          <div class="ui violet label"><%= tag.tag_name %></div>
-        <% end %>
-
-      </h3>
-
-      <div class="ui attached segment" style="background-color: #f0fff0;color: #000;">
-
-          <%= markdown(@product.body).html_safe %><!--Markdownヘルパーを使ってる-->
-
-
-      </div>
-      <table class="ui inverted teal table">
-        <thead>
-          <tr>
-            <th>ユーザ名</th>
-            <th>ボディ</th>
-            <th>作成日</th>
-          </tr>
-      　</thead>
-        <tbody>
-          <% @comments.each do |comment| %>
-            <tr>
-              <td><%= comment.user.name %></td>
-              <td><%= comment.body %></td>
-              <td>
-                <%= comment.created_at.strftime("%Y.%m/%d") %>
-                <% if current_user.id == comment.user.id %>
-                  <%=link_to "削除", product_comment_path(comment.product.id, comment.id), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        <div>
+          <%= @product.title %>
+          <div class="ui right floated button">
+            <div class="ui dropdown">
+              <div class="text">option</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <% if current_user==@product.user %>
+                  <div class="item">
+                    <%= link_to(edit_product_path(@product)) do %>
+                      <i class="edit icon"></i>編集
+                      <% end %>
+                    </div>
+                    <div class="item">
+                      <%= link_to(product_path(@product), method: :delete, data: { confirm: '本当に削除しますか？' }) do %>
+                      <i class="trash icon"></i>削除
+                      <% end %>
+                    </div>
+                    <div class="item">
+                      <%= link_to(root_path) do %>
+                      <i class="undo alternate icon"></i>一覧に戻る
+                      <% end %>
+                    </div>
+                    <% else %>
+                    <div class="item">
+                      <%= link_to(root_path) do %>
+                      　  <i class="undo alternate icon"></i>一覧に戻る
+                      　<% end %>
+                    </div>
                 <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% @product.tags.each do |tag| %>
+          <div class="ui label"><%= tag.tag_name %></div>
+        <% end %>
+      </h3>
+      <div class="ui bottom attached segment" style="background-color: #fff;color: #000;">
+          <%= markdown(@product.body).html_safe %><!--Markdownヘルパーを使ってる-->
+      </div>
+      <div class="ui comments">
+        <h3 class="ui dividing header"><i class="comment outline icon"></i>Comments</h3>
+        <% @comments.each do |comment| %>
+        <div class="comment">
+          <a class="avatar">
+            <%= image_tag( comment.user.image.url,class: 'icon') %>
+          </a>
+          <div class="content">
+            <a class="author"><%= comment.user.name %></a>
+            <div class="metadata">
+              <span class="date"><%= comment.created_at.strftime("%Y.%m/%d") %></span>
+            </div>
+            <div class="text">
+              <%= comment.body %>
+            </div>
+            <div class="actions">
+              <% if current_user.id == comment.user.id %>
+                <%=link_to "削除", product_comment_path(comment.product.id, comment.id), method: :delete, data: { confirm: '本当に削除しますか？' },class: "reply" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <%= form_with(model: [@product, @comment], method: :post, local: true,class: "ui reply form") do |f| %>
+        <%= render 'layouts/error_messages', model: f.object %>
+          <div class="field">
+            <div>
+              <%= f.hidden_field :product_id, :value => @product.id %>
+              <%= f.text_field :body, :placeholder => "コメントする..."%>
+
+              <div>
+                <%= button_tag :type => "submit", :class =>"ui yellow button" do %>
+                  <i class="icon edit"></i>投稿する
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
     <div class="one wide column"><p></div>
 </div>
