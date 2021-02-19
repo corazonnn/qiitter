@@ -45,8 +45,12 @@
               </div>
               <% if user_signed_in? %>
               <div class="actions">
-                <a><%= render 'layouts/like_button', product: product %></a>
-                <a><%= render 'layouts/follow_button', user: product.user %></a>
+                <a id="like_button_<%= product.id %>">
+                  <%= render 'likes/like_button', product: product %>
+                </a>
+                <a id="follow_button_<%= product.user.id %>">
+                  <%= render 'relationships/follow_button', user: product.user %>
+                </a>
                 <div class="ui divider"></div>
               </div>
               <% end %>

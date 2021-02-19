@@ -1,0 +1,4 @@
+//【流れ】いいねボタンを押す(view)→remote:trueが書いてあるのでcreate.js.erbに飛んでくる→部分テンプレートのみ変更する→viewに戻る
+//$('#likes_buttons_<%= @product.id %>')：#likes_buttons_<%= @product.id %>を持つidのブロックを対象とする。
+//.html("<%= j(render partial: 'likes/like_button', locals: {product: @product}) %>")その部分だけ変更しなさい。
+$('#like_button_<%= @product.id %>').html("<%= j(render 'likes/like_button', product: @product) %>");

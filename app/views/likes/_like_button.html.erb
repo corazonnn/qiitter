@@ -1,13 +1,13 @@
 <% if user_signed_in? %>
   <% if current_user.liked?(product) %>
-    <%= form_with(model: current_user.likes.find_by(product_id: product.id), local: true, method: :delete) do |f| %>
+    <%= form_with(model: current_user.likes.find_by(product_id: product.id), method: :delete, local: false) do |f| %>
       <%= hidden_field_tag :product_id, product.id %>
       <%= button_tag :type => "submit", :class =>"mini ui button" do %>
         <i class="heart red icon"></i><%= product.likes.count %>
       <% end %>
     <% end %>
   <% else %>
-  <%= form_with(model: current_user.likes.build, local: true) do |f| %>
+  <%= form_with(model: current_user.likes.build, local: false) do |f| %>
     <%= hidden_field_tag :product_id, product.id %>
       <%= button_tag :type => "submit", :class =>"mini ui button" do %>
         <i class="heart icon"></i><%= product.likes.count %>

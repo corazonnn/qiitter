@@ -46,8 +46,8 @@
               </div>
             </div>
           </div>
-          <div class="extra content">
-            <%= render 'layouts/follow_button', user: @product.user %>
+          <div class="extra content" id="follow_button_<%= @product.user.id %>">
+            <%= render 'relationships/follow_button', user: @product.user %>
           </div>
         </div>
       </div>

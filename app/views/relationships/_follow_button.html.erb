@@ -1,13 +1,13 @@
 <% unless current_user == user %>
   <% if current_user.following?(user) %>
-    <%= form_with(model: current_user.relationships.find_by(follow_id: user.id), local: true, method: :delete) do |f| %>
+    <%= form_with(model: current_user.relationships.find_by(follow_id: user.id), local: false, method: :delete) do |f| %>
       <%= hidden_field_tag :follow_id, user.id %><!--フォローしているuserのidをfollow_idとして隠して送る-->
       <%= button_tag :type => "submit", :class =>"mini ui button" do %>
       <i class="icon user"></i>Followed
       <% end %>
     <% end %>
   <% else %>
-    <%= form_with(model: current_user.relationships.build, local: true) do |f| %>
+    <%= form_with(model: current_user.relationships.build, local: false) do |f| %>
       <%= hidden_field_tag :follow_id, user.id %>
       <%= button_tag :type => "submit", :class =>"mini ui linkedin button" do %>
       <i class="icon user"></i>Follow

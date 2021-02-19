@@ -77,8 +77,8 @@
                       New Member
                     </div>
                   </div>
-                  <div class="extra content">
-                    <%= render 'layouts/follow_button', user: follower %>
+                  <div class="extra content" id="follow_button_<%= follower.id %>">
+                    <%= render 'relationships/follow_button', user: follower %>
                   </div>
                 </div>
               </div>
