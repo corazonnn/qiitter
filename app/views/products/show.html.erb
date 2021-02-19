@@ -96,10 +96,10 @@
       <div class="ui bottom attached segment" style="background-color: #fff;color: #000;">
           <%= markdown(@product.body).html_safe %><!--Markdownヘルパーを使ってる-->
       </div>
-      <div class="ui comments">
+      <div class="ui comments" >
         <h3 class="ui dividing header"><i class="comment outline icon"></i>Comments</h3>
         <% @comments.each do |comment| %>
-        <div class="comment">
+        <div class="comment" style="background-color: #fff">
           <a class="avatar">
             <%= image_tag( comment.user.image.url,class: 'icon') %>
           </a>
