@@ -32,10 +32,11 @@ class ApplicationController < ActionController::Base
       if @product.present?
         @data = []
         @product.each_with_index do |product, idx|
+          #@data = [['2019-06-01', 100], ['2019-06-02', 200], ['2019-06-03', 150]]
           @data.push [product.created_at.to_s(:datetime_jp), idx + 1]
         end
       end
-    end #@data = [['2019-06-01', 100], ['2019-06-02', 200], ['2019-06-03', 150]]
+    end
   end
 
   def create_pie_graph #円グラフ
@@ -47,13 +48,13 @@ class ApplicationController < ActionController::Base
       products.each do |product|
         pie_graph_data << [product.tags.pluck(:tag_name)] #pie_graph_dataは[ [[]],[[]],[["Ruby","AWS"]],[["PHP","Python"]],[[]],[[]],[[]]]の状態
       end
-      result = pie_graph_data.flatten #@resultは["AWS","PHP","Python","C","C++","Ruby"]#まだある
-      result.each do |res|
-        if @pie_data.has_key?(res)
-          val = @pie_data[res]
-          @pie_data.store(res, val + 1)
+      pie_graph_result = pie_graph_data.flatten #@resultは["AWS","PHP","Python","C","C++","Ruby"]#まだある
+      pie_graph_result.each do |pie_res|
+        if @pie_data.has_key?(pie_res)
+          val = @pie_data[pie_res]
+          @pie_data.store(pie_res, val + 1)
         else
-          @pie_data.store(res, 1)#ないなら@pie_dataに追加
+          @pie_data.store(pie_res, 1)#ないなら@pie_dataに追加
         end
       end
     end
