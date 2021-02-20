@@ -1,45 +1,43 @@
-<div class="jumbotron jumbotron-extend-show" >
-  <div class="container-fluid jumbotron-container">
-    <h1 style="color: #fff;font-size: 3.5em;">Qiitter</h1>
-    <h3 style="color: #fff;font-size: 1.5em;margin-top:0;" >〜 今までのストーリー 〜</h3>
-  </div>
-</div>
-
-<div class="ui stackable grid">
-    <div class="two wide column"><p></div>
-    <div class="four wide column">
-
+<div class="ui stackable grid" style="background-color: #232946;padding-top:30px">
+  <div class="two wide column"></div>
+    <div class="four wide column" style="margin-right:20px;">
       <div class="side active">
-        <div class="ui card">
+        <div class="ui card centered fluid">
           <div class="image">
             <%= image_tag @user.image.url,class: 'icon' %>
           </div>
           <div class="content">
             <a class="header"><%= @user.name %></a>
             <div class="description">
-              <div class="ui tiny statistics">
-                <div class="statistic">
-                  <div class="value">
-                    <%= @count_products %>
-                  </div>
-                  <div class="label">
-                    投稿
-                  </div>
-                </div>
-                <div class="statistic">
-                  <div class="value">
-                    <%= @count_followings %>
-                  </div>
-                  <div class="label">
-                    <%= link_to "フォロー", followings_user_path(@user) %>
+              <div class="ui equal width grid">
+                <div class="column">
+                  <div class="ui small statistic">
+                    <div class="value">
+                      <%= @count_products %>
+                    </div>
+                    <div class="label">
+                      投稿
+                    </div>
                   </div>
                 </div>
-                <div class="statistic">
-                  <div class="value">
-                    <%= @count_followers %>
+                <div class="column">
+                  <div class="ui small statistic">
+                    <div class="value">
+                      <%= @count_followings %>
+                    </div>
+                    <div class="label">
+                      <%= link_to "フォロー", followings_user_path(@user),style: "color:#232946;" %>
+                    </div>
                   </div>
-                  <div class="label">
-                    <%= link_to "フォロワー", followers_user_path(@user) %>
+                </div>
+                <div class="column">
+                  <div class="ui small statistic">
+                    <div class="value">
+                      <%= @count_followers %>
+                    </div>
+                    <div class="label">
+                      <%= link_to "フォロワー", followers_user_path(@user),style: "color:#232946;" %>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -47,9 +45,9 @@
           </div>
           <div class="extra content">
             <% if current_user == @user%>
-              <button class="fluid ui yellow button"><%= link_to "プロフィールを編集", edit_user_registration_path %></button>
+              <button class="fluid ui button" style="background:#eebbc3;"><%= link_to "プロフィールを編集", edit_user_registration_path,style: "color:#232946;" %></button>
             <% else %>
-              <button class="ui primary button">フォロー</button>
+              <%= render 'layouts/follow_button', user: @user %>
             <% end %>
           </div>
         </div>
@@ -57,33 +55,35 @@
     </div>
 
     <div class="eight wide column">
-      <div class="ui secondary pointing menu" style="background-color:#fff;margin-bottom:0;">
+      <div class="ui secondary pointing menu" style="background-color:#fff;margin-bottom:0;padding:10px 20px 0 20px;">
         <%= link_to '可視化による分析',user_path(@user), class: "item" %>
         <%= link_to "フォロー中", followings_user_path(@user), class: "item" %>
         <%= link_to "フォロワー", followers_user_path(@user), class: "active item" %>
       </div>
-      <div class="ui relaxed grid">
-        <div class="three column row">
-          <% @followers.each do |follower| %>
-            <div class="column" style="margin-top:1rem;">
-              <div class="ui cards">
-                <div class="card">
-                  <div class="content">
-                    <%= image_tag follower.image.url,class: 'icon' %>
-                    <div class="header">
-                      <%= follower.name %>
+      <div style="background-color:#fff;padding-top:10px;border-radius:0 0 7px 7px;margin-bottom:20px;">
+        <div class="ui relaxed grid" style="margin-left:20px;">
+          <div class="three column row">
+            <% @followers.each do |follower| %>
+              <div class="column" style="margin-top:1rem;">
+                <div class="ui cards">
+                  <div class="card">
+                    <div class="content">
+                      <%= image_tag follower.image.url,class: 'icon' %>
+                      <div class="header">
+                        <%= follower.name %>
+                      </div>
+                      <div class="meta">
+                        New Member
+                      </div>
                     </div>
-                    <div class="meta">
-                      New Member
+                    <div class="extra content" id="follow_button_<%= follower.id %>">
+                      <%= render 'relationships/follow_button', user: follower %>
                     </div>
-                  </div>
-                  <div class="extra content" id="follow_button_<%= follower.id %>">
-                    <%= render 'relationships/follow_button', user: follower %>
                   </div>
                 </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

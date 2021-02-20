@@ -1,9 +1,4 @@
-<div class="jumbotron jumbotron-extend-show" >
-  <div class="container-fluid jumbotron-container">
-    <h1 style="color: #fff;font-size: 3.5em;">Qiitter</h1>
-    <h3 style="color: #fff;font-size: 1.5em;margin-top:0;" >プロダクト詳細ページ</h3>
-  </div>
-</div>
+
 <div class="ui stackable grid">
     <div class="one wide column"></div>
     <div class="four wide column">
@@ -18,29 +13,35 @@
               <span class="date">Joined in 2014</span>
             </div>
             <div class="description">
-              <div class="ui tiny statistics">
-                <div class="statistic">
-                  <div class="value">
-                    0
-                  </div>
-                  <div class="label">
-                    投稿
-                  </div>
-                </div>
-                <div class="statistic">
-                  <div class="value">
-                    0
-                  </div>
-                  <div class="label">
-                    フォロー
+              <div class="ui equal width grid">
+                <div class="column">
+                  <div class="ui small statistic">
+                    <div class="value">
+                      <%= @product.user.products.count %>
+                    </div>
+                    <div class="label">
+                      投稿
+                    </div>
                   </div>
                 </div>
-                <div class="statistic">
-                  <div class="value">
-                    2
+                <div class="column">
+                  <div class="ui small statistic">
+                    <div class="value">
+                      <%= @product.user.followings.count %>
+                    </div>
+                    <div class="label">
+                      フォロー
+                    </div>
                   </div>
-                  <div class="label">
-                    フォロワー
+                </div>
+                <div class="column">
+                  <div class="ui small statistic">
+                    <div class="value">
+                      <%= @product.user.followers.count %>
+                    </div>
+                    <div class="label">
+                      フォロワー
+                    </div>
                   </div>
                 </div>
               </div>
@@ -96,45 +97,48 @@
       <div class="ui bottom attached segment" style="background-color: #fff;color: #000;">
           <%= markdown(@product.body).html_safe %><!--Markdownヘルパーを使ってる-->
       </div>
-      <div class="ui comments" >
-        <h3 class="ui dividing header"><i class="comment outline icon"></i>Comments</h3>
-        <% @comments.each do |comment| %>
-        <div class="comment" style="background-color: #fff">
-          <a class="avatar">
-            <%= image_tag( comment.user.image.url,class: 'icon') %>
-          </a>
-          <div class="content">
-            <a class="author"><%= comment.user.name %></a>
-            <div class="metadata">
-              <span class="date"><%= comment.created_at.strftime("%Y.%m/%d") %></span>
-            </div>
-            <div class="text">
-              <%= comment.body %>
-            </div>
-            <div class="actions">
-              <% if current_user.id == comment.user.id %>
-                <%=link_to "削除", product_comment_path(comment.product.id, comment.id), method: :delete, data: { confirm: '本当に削除しますか？' },class: "reply" %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <% end %>
-        <%= form_with(model: [@product, @comment], method: :post, local: true,class: "ui reply form") do |f| %>
-        <%= render 'layouts/error_messages', model: f.object %>
-          <div class="field">
-            <div>
-              <%= f.hidden_field :product_id, :value => @product.id %>
-              <%= f.text_field :body, :placeholder => "コメントする..."%>
-
-              <div>
-                <%= button_tag :type => "submit", :class =>"ui yellow button" do %>
-                  <i class="icon edit"></i>投稿する
+      <div style="background:#fffffe;">
+        <div class="ui comments">
+          <h3 class="ui dividing header" style="padding:20px;"><i class="comment outline icon"></i>Comments</h3>
+          <% @comments.each do |comment| %>
+          <div class="comment" style="background-color: #fff">
+            <a class="avatar">
+              <%= image_tag( comment.user.image.url,class: 'icon') %>
+            </a>
+            <div class="content">
+              <a class="author"><%= comment.user.name %></a>
+              <div class="metadata">
+                <span class="date"><%= comment.created_at.strftime("%Y.%m/%d") %></span>
+              </div>
+              <div class="text">
+                <%= comment.body %>
+              </div>
+              <div class="actions">
+                <% if current_user.id == comment.user.id %>
+                  <%=link_to "削除", product_comment_path(comment.product.id, comment.id), method: :delete, data: { confirm: '本当に削除しますか？' },class: "reply" %>
                 <% end %>
               </div>
             </div>
           </div>
-        <% end %>
+          <% end %>
+          <%= form_with(model: [@product, @comment], method: :post, local: true,class: "ui reply form") do |f| %>
+          <%= render 'layouts/error_messages', model: f.object %>
+            <div class="field">
+              <div style="padding:20px 20px 0 20px;">
+                <%= f.hidden_field :product_id, :value => @product.id %>
+                <%= f.text_field :body, :placeholder => "コメントする..."%>
+
+                <div>
+                  <%= button_tag :type => "submit", :class =>"ui button",:style => "margin:10px;background:#eebbc3;color:#232946;" do %>
+                    <i class="icon edit"></i>投稿する
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
+
     </div>
     <div class="one wide column"><p></div>
 </div>

@@ -16,24 +16,44 @@
 @import "bootstrap";
 @import "semantic-ui";
 
-//全体〜〜〜
-//〜〜〜ここまで
-
+//スマートフォンのサイズ
+@media screen and (max-width:480px) {
+  .story-set { display: none !important; } //ヘッダーの画像を消す
+  .information {display:none} //サイト情報を消す
+  #jumbotron-main{//消せない。
+    font-size: 33em;
+  }
+  #jumbotron-sub{
+    font-size: 0.9em;
+  }
+}
 
 //サイト上部〜〜〜
 .jumbotron-extend {
     position: relative;
-    height: 40vh;
+    height: 50vh;
     min-height:300px;
-    background: #ffb347;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ffcc33, #ffb347);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ffcc33, #ffb347); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    //background: #ffb347;  /* fallback for old browsers */
+    //background: -webkit-linear-gradient(to right, #ffcc33, #ffb347);  /* Chrome 10-25, Safari 5.1-6 */
+    //background: linear-gradient(to right, #ffcc33, #ffb347); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 .story-set{
-  width: 200px;
-  height: 200px;
+  width: 400px;
+  height: 400px;
   fill: #D000FA;
   stroke: #0500FA;
+}
+
+#jumbotron-main{//Qiitterの文字
+  color: #fffffe;
+  font-size: 5.5em;
+  text-align: left;
+}
+#jumbotron-sub{//あなたの勉強の成果を可視化させようの文字
+  color: #b8c1ec;
+  font-size: 1.0em;
+  text-align: left;
+  margin-bottom: 30px;
 }
 
 }
@@ -50,7 +70,7 @@
   padding-left: 40px;
   text-align: center;
 }
-#information{
+.information{
   position: absolute;
   bottom: 0;
   right: 0;
@@ -62,10 +82,9 @@
 //~~users.show.html.erb
 .jumbotron-extend-show {
     position: relative;
-    height: 10vh;
+    height: 5vh;
     min-height:100px;
-    background: #ffb347;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ffcc33, #ffb347);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ffcc33, #ffb347); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    text-align: center;
+
 }
 //~~ここまで

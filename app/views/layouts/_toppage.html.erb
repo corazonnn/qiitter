@@ -1,39 +1,20 @@
-<div class="jumbotron jumbotron-extend" >
+<div class="jumbotron jumbotron-extend" style="background:#232946;">
   <div class="container-fluid jumbotron-container">
     <div class="ui stackable grid">
-      <div class="two wide column"><%= embedded_svg("header2.svg", class: "story-set") %></div>
-      <div class="seven wide column" id="jumbotron-text">
-        <h1 style="color: #fff;font-size: 6.5em;">Qiitter</h1>
-        <h3 style="color: #fff;font-size: 1.8em;" >あなたの勉強の成果を可視化させよう</h3>
-      </div>
-      <div class="four wide column" id="information">
-        <div class="ui card">
-          <div class="content">
-            <div class="header">サイト情報</div>
-          </div>
-          <div class="content">
-            <h4 class="ui sub header">Activity</h4>
-            <div class="ui small feed">
-              <div class="event">
-                <div class="content">
-                  <div class="summary">
-                    投稿数：<%= @all_products %>
-                  </div>
-                </div>
-              </div>
-              <div class="event">
-                <div class="content">
-                  <div class="summary">
-                    ユーザ数: <%= @all_users %>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="two wide column"><%= embedded_svg("header4.svg", class: "story-set") %></div>
       <div class="one wide column"></div>
+      <div class="six wide column" id="jumbotron-text">
+        <h1 id="jumbotron-main">Qiitter</h1>
+        <h3 id="jumbotron-sub" style="line-height:1.8;letter-spacing:3px;">あなたの勉強の成果を可視化させよう<br>TwitterやQiitaはアウトプットの場としては素晴らしい<br>
+        しかし、それらツイートや記事は点としてのみ存在し、ストーリー性が感じられません<br>
+        あなたの日々の勉強の成果をデータ化、グラフ化することで世界で一つのストーリーを作ろう</h3>
+        <%= link_to(new_product_path,class: "massive ui button",style: "background:#eebbc3;color:#232946;float: left;") do %>
+          <span style="font-size:20px">Get start!</span>
+        <% end %>
+      </div>
+      <div class="one wide column"></div>
+      <div class="two wide column"><%= embedded_svg("header13.svg", class: "story-set") %></div>
+
+
     </div>
   </div>
 </div>

@@ -1,47 +1,73 @@
-<div class="jumbotron jumbotron-extend-show" >
-  <div class="container-fluid jumbotron-container">
-    <h1 style="color: #fff;font-size: 3.5em;">Qiitter</h1>
-    <h3 style="color: #fff;font-size: 1.5em;margin-top:0;" >〜<i class="th icon"></i>新規作成〜</h3>
+<div class="ui stackable grid">
+  <div class="one wide column"></div>
+  <div class="three wide column">
+    <div class="ui vertical fluid tabular menu" style="background:#fffffe;">
+      <div class="active item" style="background:#b8c1ec;">
+          <small>
+              <i class="th icon"></i>
+              <%= link_to '記事を書く',new_product_path,style: "color:#232946;" %>
+          </small>
+      </div>
+      <% if user_signed_in? %>
+        <div class="item">
+            <small>
+                <i class="clipboard outline icon"></i>
+                <%= link_to "いいね一覧", likings_user_path(current_user),style: "color:#232946;" %>
+            </small>
+        </div>
+        <div class="item">
+            <small>
+                <i class="bell icon"></i>
+                <%= link_to "通知", notifications_path,style: "color:#232946;" %>
+            </small>
+        </div>
+        <div class="item">
+            <small>
+                <i class="user circle icon"></i>
+                <%= link_to "マイページ", user_path(current_user),style: "color:#232946;" %>
+            </small>
+        </div>
+      <% else %>
+         <div class="item">
+             <small>
+                 <i class="clipboard outline icon"></i>
+                 <%= link_to "ログイン", new_user_session_path, class: 'post',style: "color:#232946;" %>
+             </small>
+         </div>
+         <div class="item">
+             <small>
+                 <i class="clipboard outline icon"></i>
+                 <%= link_to "新規登録", new_user_registration_path, class: 'post',style: "color:#232946;" %>
+             </small>
+         </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="ten wide stretched column" style="margin-left:15px;">
+    <div style="background:#fffffe;">
+      <%= form_with(model: @product, method: :post, local: true, class: "ui form") do |f| %>
+        <%= render 'layouts/error_messages', model: f.object %>
+
+        <div class="inline fields centered" style="margin:15px;">
+            <%= f.text_field :title, :placeholder => "タイトル" %>
+        </div>
+
+        <div class="inline fields centered" style="margin:15px;">
+            <%= f.text_field :tag_name, :placeholder => ",(カンマ)で区切ってください.例)AWS,Ruby,HTML" %>
+        </div>
+
+        <div class="inline fields centered" style="margin:15px;">
+            <p>Markdownについて知りたい方は<a href="https://qiita.com/kamorits/items/6f342da395ad57468ae3">こちら</a></p>
+        </div>
+
+        <div class="inline fields centered" style="margin:15px;">
+            <%= f.text_area :body, :placeholder => "ソースコード(Markdown対応しています)" %>
+        </div>
+
+        <div class="inline fields centered" style="margin:15px;">
+          <%= f.submit '作成',class: "ui fluid button",style: "background:#eebbc3;"%>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
-
-<%= form_with(model: @product, method: :post, local: true, class: "ui form") do |f| %>
-  <%= render 'layouts/error_messages', model: f.object %>
-  <div class="inline fields">
-    <div class="three wide field"></div>
-    <div class="eleven wide field">
-      <%= f.text_field :title, :placeholder => "タイトル" %>
-    </div>
-    <div class="two wide field"></div>
-  </div>
-  <div class="inline fields">
-    <div class="three wide field"></div>
-    <div class="eleven wide field">
-      <%= f.text_field :tag_name, :placeholder => ",(カンマ)で区切ってください.例)AWS,Ruby,HTML" %>
-    </div>
-    <div class="two wide field"></div>
-  </div>
-
-  <div class="inline fields">
-    <div class="three wide field"></div>
-    <div class="eleven wide field">
-      <p>Markdownについて知りたい方は<a href="https://qiita.com/kamorits/items/6f342da395ad57468ae3">こちら</a></p>
-    </div>
-    <div class="two wide field"></div>
-  </div>
-
-  <div class="inline fields">
-    <div class="three wide field"></div>
-    <div class="eleven wide field">
-      <%= f.text_area :body, :placeholder => "ソースコード(Markdown対応しています)" %>
-    </div>
-    <div class="two wide field"></div>
-  </div>
-  <div class="inline fields">
-    <div class="seven wide field"></div>
-    <div class="two wide field">
-    <%= f.submit '保存',class: "ui primary button"%>
-    </div>
-    <div class="seven wide field"></div>
-  </div>
-<% end %>

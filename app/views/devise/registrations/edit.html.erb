@@ -1,49 +1,69 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="ui stackable grid">
+  <div class="two wide column"></div>
+  <div class="twelve wide column">
+    <div style="background:#fffffe;"">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'ui form' }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="eleven wide field">
+              <div><%= image_tag @user.image.url, id: 'preview', class: 'icon' %></div>
+                <div><%= f.file_field :image, onchange: 'previewFileWithId(preview)', accept: 'image/*' %></div>
+          </div>
+          <div class="two wide field"></div>
+        </div>
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="eleven wide field">
+            <%= f.text_field :name, autofocus: true, :placeholder => "ユーザ名" %>
+          </div>
+          <div class="two wide field"></div>
+        </div>
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="eleven wide field">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "ユーザ名" %>
+          </div>
+          <div class="two wide field"></div>
+        </div>
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="eleven wide field">
+            <%= f.password_field :password, autocomplete: "new-password", :placeholder => "パスワード(変更しない場合は空白にしてください)" %>
+          </div>
+          <div class="two wide field"></div>
+        </div>
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="eleven wide field">
+            <% if @minimum_password_length %>
+              <br />
+              <em>最低<%= @minimum_password_length %> 文字以上</em>
+            <% end %>
+          </div>
+          <div class="two wide field"></div>
+        </div>
+        <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="eleven wide field">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", :placeholder => "パスワード(確認用)" %>
+            </div>
+            <div class="two wide field"></div>
+        </div>
+        <div class="inline fields">
+          <div class="seven wide field"></div>
+          <div class="two wide field">
+            <%= f.submit '更新',class: "ui button",style: "background:#eebbc3;color:#232946;"%>
+          </div>
+          <div class="two wide field">
+            <%= link_to "戻る", :back, class: "ui button",style: "background:#b8c1ec;" %>
+          </div>
+          <div class="seven wide field"></div>
+        </div>
+      <% end %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="field">
-    <div><%= image_tag @user.image.url, id: 'preview', class: 'icon' %></div>
-    <%= f.file_field :image, onchange: 'previewFileWithId(preview)', accept: 'image/*' %>
+      <%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "本当に消しますか?" }, method: :delete,class: "ui red button" %>
 
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :name, "ユーザ名" %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password, "パスワード" %> <i>(変更しない場合は空白にしてください)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em>最低<%= @minimum_password_length %> 文字以上</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード(確認用)" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-
-
-<p><%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "本当に消しますか?" }, method: :delete %></p>
-
-<%= link_to "戻る", :back %>
+</div>

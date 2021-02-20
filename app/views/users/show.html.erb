@@ -1,45 +1,43 @@
-<div class="jumbotron jumbotron-extend-show" >
-  <div class="container-fluid jumbotron-container">
-    <h1 style="color: #fff;font-size: 3.5em;">Qiitter</h1>
-    <h3 style="color: #fff;font-size: 1.5em;margin-top:0;" >〜 今までのストーリー 〜</h3>
-  </div>
-</div>
-
-<div class="ui stackable grid">
-    <div class="two wide column"><p></div>
-    <div class="four wide column">
-
+<div class="ui stackable grid" style="background-color: #232946;padding-top:30px">
+  <div class="two wide column"></div>
+    <div class="four wide column" style="margin-right:20px;">
       <div class="side active">
-        <div class="ui card">
+        <div class="ui card centered fluid">
           <div class="image">
             <%= image_tag @user.image.url,class: 'icon' %>
           </div>
           <div class="content">
             <a class="header"><%= @user.name %></a>
             <div class="description">
-              <div class="ui tiny statistics">
-                <div class="statistic">
-                  <div class="value">
-                    <%= @count_products %>
-                  </div>
-                  <div class="label">
-                    投稿
-                  </div>
-                </div>
-                <div class="statistic">
-                  <div class="value">
-                    <%= @count_followings %>
-                  </div>
-                  <div class="label">
-                    <%= link_to "フォロー", followings_user_path(@user) %>
+              <div class="ui equal width grid">
+                <div class="column">
+                  <div class="ui small statistic">
+                    <div class="value">
+                      <%= @count_products %>
+                    </div>
+                    <div class="label">
+                      投稿
+                    </div>
                   </div>
                 </div>
-                <div class="statistic">
-                  <div class="value">
-                    <%= @count_followers %>
+                <div class="column">
+                  <div class="ui small statistic">
+                    <div class="value">
+                      <%= @count_followings %>
+                    </div>
+                    <div class="label">
+                      <%= link_to "フォロー", followings_user_path(@user),style: "color:#232946;" %>
+                    </div>
                   </div>
-                  <div class="label">
-                    <%= link_to "フォロワー", followers_user_path(@user) %>
+                </div>
+                <div class="column">
+                  <div class="ui small statistic">
+                    <div class="value">
+                      <%= @count_followers %>
+                    </div>
+                    <div class="label">
+                      <%= link_to "フォロワー", followers_user_path(@user),style: "color:#232946;" %>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -47,7 +45,7 @@
           </div>
           <div class="extra content">
             <% if current_user == @user%>
-              <button class="fluid ui yellow button"><%= link_to "プロフィールを編集", edit_user_registration_path %></button>
+              <button class="fluid ui button" style="background:#eebbc3;"><%= link_to "プロフィールを編集", edit_user_registration_path,style: "color:#232946;" %></button>
             <% else %>
               <%= render 'layouts/follow_button', user: @user %>
             <% end %>
@@ -57,38 +55,41 @@
     </div>
 
     <div class="eight wide column">
-      <div class="ui secondary pointing menu" style="background-color:#fff;margin-bottom:0;">
+      <div class="ui secondary pointing menu" style="background-color:#fff;margin-bottom:0;padding:10px 20px 0 20px;">
         <%= link_to '可視化による分析',user_path(@user), class: "active item" %>
         <%= link_to "フォロー中", followings_user_path(@user), class: "item" %>
         <%= link_to "フォロワー", followers_user_path(@user), class: "item" %>
       </div>
       <!--グラフ-->
       <% if @product.present? %>
-        <div style="background-color:#fff;padding-top:10px">
-          <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+        <div style="background-color:#fff;padding-top:10px;border-radius:0 0 7px 7px;margin-bottom:20px;">
+          <h3 class="ui header" style="padding:20px;">
             <i class="chart bar outline icon" style="float:left;"></i>あなたのストーリー
             <div class="sub header">
               今までの勉強の軌跡
             </div>
           </h3>
-          <%= area_chart @data, width: "700px", height: "500px", xtitle: "作成日", ytitle: "アウトプット個数"  %>
-          <div class="ui divider"></div>
+          <%= area_chart @data, width: "100%", height: "25em", xtitle: "作成日", ytitle: "アウトプット個数",class: "area_chart_graph", colors: ["#eebbc3"]  %>
+        </div>
           <!--円グラフ-->
-          <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+        <div style="background-color:#fff;padding-top:10px;margin-bottom:20px;">
+          <h3 class="ui header" style="padding:20px;">
             <i class="chart pie icon" style="float:left;"></i>あなたのタグの割合
             <div class="sub header">
               あなたは何に力を入れてきたのか
             </div>
           </h3>
           <%= pie_chart @pie_data %>
-          <div class="ui divider"></div>
-          <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+        </div>
+
+        <div style="background-color:#fff;padding-top:10px;border-radius:0 0 7px 7px;margin-bottom:20px;">
+          <h3 class="ui header" style="padding:20px;">
             <i class="chart bar outline icon" style="float:left;"></i>あなたのストーリー
             <div class="sub header">
               今までの勉強の軌跡
             </div>
           </h3>
-          <table class="ui celled striped table">
+          <table class="ui stackable celled striped table">
             <thead>
               <tr><th colspan="3">
                 ALL PRODUCT
@@ -114,7 +115,9 @@
                 <% end %>
               </tbody>
             </table>
-            <%= paginate @my_product %>
+            <div style="padding-bottom:20px;padding-left:10px;width:100%">
+              <%= paginate @my_product %>
+            </div>
           </div>
       <% end %>
     </div>
