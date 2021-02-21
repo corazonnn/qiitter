@@ -6,7 +6,15 @@ class ProductsController < ApplicationController
   before_action :all_users_products, only: [:index, :search, :graph]
   def index
     @products = Product.order(id: :desc).page(params[:page]).per(5)
-    #グラフの作成
+    if current_user.present?#投稿数、いいねされた数の取得をする
+      products_counts(current_user)#投稿数
+      @user_products = current_user.products
+      @like_count = 0
+      @user_products.each do |product|
+        @like_count += product.likes.count #いいねされた数の取得をする
+      end
+    end
+    #棒、円グラフの作成
   end
   def show
     @product = Product.find(params[:id])

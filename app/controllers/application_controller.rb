@@ -39,8 +39,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def create_pie_graph #円グラフ
+  def create_pie_graph #円グラフとタグのパーセント
     if user_signed_in?
+      #ここから円グラフ
       @my_product = current_user.products.order(id: :desc).page(params[:page]).per(7)
       products = current_user.products.all
       pie_graph_data = []
@@ -48,15 +49,27 @@ class ApplicationController < ActionController::Base
       products.each do |product|
         pie_graph_data << [product.tags.pluck(:tag_name)] #pie_graph_dataは[ [[]],[[]],[["Ruby","AWS"]],[["PHP","Python"]],[[]],[[]],[[]]]の状態
       end
-      pie_graph_result = pie_graph_data.flatten #@resultは["AWS","PHP","Python","C","C++","Ruby"]#まだある
+      pie_graph_result = pie_graph_data.flatten #@pie_graph_resultは["AWS","PHP","Python","C","C++","Ruby"]
       pie_graph_result.each do |pie_res|
         if @pie_data.has_key?(pie_res)
           val = @pie_data[pie_res]
           @pie_data.store(pie_res, val + 1)
         else
-          @pie_data.store(pie_res, 1)#ないなら@pie_dataに追加
+          @pie_data.store(pie_res, 1)#@pie_dataは{"AWS"=>2,"Ruby"=>3,"Python"=>3,"PHP"=>1}タグとその個数
         end
       end
+      #ここからタグのパーセント
+      tag_count = @pie_data.values.inject(:+)#valueの合計の数をもらう
+      @tag_percent_data = {}
+      @pie_data.each{|key, value|
+        value_percent = (value * 100)/tag_count
+        value_percent = value_percent.floor
+        @tag_percent_data.store(key, value_percent)
+      }
+      @tag_percent_data = @tag_percent_data.sort {|a,b| b[1]<=>a[1]}
+      @tag_percent_data = @tag_percent_data.take(5).to_h
     end
+
+
   end
 end
