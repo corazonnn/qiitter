@@ -1,29 +1,79 @@
-<% @likings.each do |product| %>
-<div class="ui large feed">
-  <div class="event">
-    <div class="label">
-      <i class="pencil icon"></i>
-    </div>
-    <div class="content">
-      <div class="summary">
-        <%= product.user.name %>
-        <div class="date">
-          3 days ago
+<div class="ui stackable grid">
+  <div class="one wide column"></div>
+  <div class="three wide column">
+    <div class="ui vertical fluid tabular menu" style="background:#fffffe;">
+      <div class="item">
+          <small>
+              <i class="th icon"></i>
+              <%= link_to '記事を書く',new_product_path,style: "color:#232946;" %>
+          </small>
+      </div>
+      <% if user_signed_in? %>
+        <div class="active item" style="background:#b8c1ec;">
+            <small>
+                <i class="clipboard outline icon"></i>
+                <%= link_to "いいね一覧", likings_user_path(current_user),style: "color:#232946;" %>
+            </small>
         </div>
-      </div>
-
-      <div class="extra text">
-        <%= link_to(product_path(product.id)) do %>
-          <%= product.title %>
-        <% end %>
-      </div>
-      <div class="meta">
-        <%= render 'layouts/like_button', product: product %>
-        <a class="like">
-          <i class="like icon"></i> Follow
-        </a>
-      </div>
+        <div class="item">
+            <small>
+                <i class="bell icon"></i>
+                <%= link_to "通知", notifications_path,style: "color:#232946;" %>
+            </small>
+        </div>
+        <div class="item">
+            <small>
+                <i class="user circle icon"></i>
+                <%= link_to "マイページ", user_path(current_user),style: "color:#232946;" %>
+            </small>
+        </div>
+      <% else %>
+         <div class="item">
+             <small>
+                 <i class="clipboard outline icon"></i>
+                 <%= link_to "ログイン", new_user_session_path, class: 'post',style: "color:#232946;" %>
+             </small>
+         </div>
+         <div class="item">
+             <small>
+                 <i class="clipboard outline icon"></i>
+                 <%= link_to "新規登録", new_user_registration_path, class: 'post',style: "color:#232946;" %>
+             </small>
+         </div>
+      <% end %>
     </div>
   </div>
+  <div class="one wide column"></div>
+  <div class="eight wide stretched column" style="margin-left:15px;">
+      <% @likings.each do |product| %>
+        <div class="ui comments" style="margin-bottom:2px;padding:15px;background:#fffffe;border-radius:7px;">
+          <div class="comment">
+            <a class="avatar">
+              <%= image_tag( product.user.image.url) %>
+            </a>
+            <div class="content">
+              <a class="author"><%= product.user.name %></a>
+              <div class="metadata">
+                <div class="date"><%= product.created_at.strftime("%Y.%m/%d") %></div>
+              </div>
+              <div class="text">
+                <%= link_to(product_path(product.id)) do %>
+                  <%= product.title %>
+                <% end %>
+              </div>
+              <div class="extra text">
+                <i class="tags icon"></i>
+                <% product.tags.each do |tag| %>
+                <%= tag.tag_name %>,
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div style="padding-bottom:20px;padding-left:10px;width:100%">
+        <%= paginate @likings %>
+      </div>
+
+  </div>
 </div>
-<% end %>

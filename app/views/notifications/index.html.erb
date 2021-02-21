@@ -1,9 +1,59 @@
-<h3 class="text-center">通知</h3>
-<%= link_to "通知削除", notification_path(@notifications), method: :delete ,class: "fas fa-trash" %>
-<% if @notifications.present? %>
-    <div class="users-index">
-        <%= render @notifications %>
+<div class="ui stackable grid">
+  <div class="one wide column"></div>
+  <div class="three wide column">
+    <div class="ui vertical fluid tabular menu" style="background:#fffffe;">
+      <div class="item">
+          <small>
+              <i class="th icon"></i>
+              <%= link_to '記事を書く',new_product_path,style: "color:#232946;" %>
+          </small>
+      </div>
+      <% if user_signed_in? %>
+        <div class="item">
+            <small>
+                <i class="clipboard outline icon"></i>
+                <%= link_to "いいね一覧", likings_user_path(current_user),style: "color:#232946;" %>
+            </small>
+        </div>
+        <div class="active item" style="background:#b8c1ec;">
+            <small>
+                <i class="bell icon"></i>
+                <%= link_to "通知", notifications_path,style: "color:#232946;" %>
+            </small>
+        </div>
+        <div class="item">
+            <small>
+                <i class="user circle icon"></i>
+                <%= link_to "マイページ", user_path(current_user),style: "color:#232946;" %>
+            </small>
+        </div>
+      <% else %>
+         <div class="item">
+             <small>
+                 <i class="clipboard outline icon"></i>
+                 <%= link_to "ログイン", new_user_session_path, class: 'post',style: "color:#232946;" %>
+             </small>
+         </div>
+         <div class="item">
+             <small>
+                 <i class="clipboard outline icon"></i>
+                 <%= link_to "新規登録", new_user_registration_path, class: 'post',style: "color:#232946;" %>
+             </small>
+         </div>
+      <% end %>
     </div>
-<% else %>
-    <p>通知はありません</p>
-<% end %>
+  </div>
+  <div class="one wide stretched column"></div>
+  <div class="nine wide stretched column">
+    <div style="margin-left:10px;">
+      <%= link_to "通知削除", notification_path(@notifications), method: :delete ,class: "ui google plus button" %>
+    </div>
+    <% if @notifications.present? %>
+        <div class="users-index" style="margin-left:10px;">
+            <%= render @notifications %>
+        </div>
+    <% else %>
+        <p>通知はありません</p>
+    <% end %>
+  </div>
+</div>

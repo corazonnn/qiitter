@@ -1,44 +1,41 @@
-<div class="ui inverted large borderless fluid menu column">
-    <a class="header item" href="/">Qiitter</a>
+<div class="ui inverted large borderless fluid menu column" id="navbar" style="background-color: #232946;">
+    <a class="header item" href="/" style="font-size:30px">Qiitter</a>
     <div class="right menu">
         <div class="ui dropdown item">
             <div class="header">
-                <h4>MENU　</h4>
+                <h4 style="font-size:20px">MENU&nbsp;</h4>
             </div>
             <i class="share square icon"></i>
-            <div class="menu">
+            <div class="menu" style="background:#fffffe;">
                 <div class="item">
                     <small>
                         <i class="th icon"></i>
-                        <%= link_to '記事を書く',new_product_path %>
+                        <%= link_to '記事を書く',new_product_path,style: "color:#232946;" %>
                     </small>
                 </div>
                 <% if user_signed_in? %>
                   <div class="item">
                       <small>
                           <i class="clipboard outline icon"></i>
-
-                          <%= link_to "いいね一覧", likings_user_path(current_user) %>
+                          <%= link_to "いいね一覧", likings_user_path(current_user),style: "color:#232946;" %>
                       </small>
                   </div>
                   <div class="item">
                       <small>
-                          <i class="clipboard outline icon"></i>
-
-                          <%= link_to "通知", notifications_path %>
+                          <i class="bell icon"></i>
+                          <%= link_to "通知", notifications_path,style: "color:#232946;" %>
                       </small>
                   </div>
                   <div class="item">
                       <small>
-                          <i class="clipboard outline icon"></i>
-
-                          <%= link_to "マイページ", user_path(current_user) %>
+                          <i class="user circle icon"></i>
+                          <%= link_to "マイページ", user_path(current_user),style: "color:#232946;" %>
                       </small>
                   </div>
                   <div class="item">
                       <small>
-                          <i class="clipboard outline icon"></i>
-                          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+                          <i class="sign out alternate icon"></i>
+                          <%= link_to "ログアウト", destroy_user_session_path, method: :delete,style: "color:#232946;" %>
                       </small>
                   </div>
                 <% else %>

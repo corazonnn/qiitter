@@ -1,0 +1,20 @@
+<div class="jumbotron jumbotron-extend" style="background:#232946;">
+  <div class="container-fluid jumbotron-container">
+    <div class="ui stackable grid">
+      <div class="one wide column"></div>
+      <div class="six wide column" id="jumbotron-text">
+        <h1 id="jumbotron-main">Qiitter</h1>
+        <h3 id="jumbotron-sub" style="line-height:1.8;letter-spacing:3px;">あなたの勉強の成果を可視化させよう<br>TwitterやQiitaはアウトプットの場としては素晴らしい<br>
+        しかし、それらツイートや記事は点としてのみ存在し、ストーリー性が感じられません<br>
+        あなたの日々の勉強の成果をデータ化、グラフ化することで世界で一つのストーリーを作ろう</h3>
+        <%= link_to(new_product_path,class: "massive ui button",style: "background:#eebbc3;color:#232946;float: left;") do %>
+          <span style="font-size:20px">Get start!</span>
+        <% end %>
+      </div>
+      <div class="one wide column"></div>
+      <div class="two wide column"><%= embedded_svg("header13.svg", class: "story-set") %></div>
+
+
+    </div>
+  </div>
+</div>

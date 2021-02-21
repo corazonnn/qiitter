@@ -1,0 +1,40 @@
+<% products.each do |product| %>
+  <div class="ui comments" style="padding-left:10px;">
+    <div class="comment">
+      <a class="avatar">
+        <%= image_tag( product.user.image.url) %>
+      </a>
+      <div class="content">
+        <a class="author"><%= product.user.name %></a>
+        <div class="metadata">
+          <div class="date"><%= product.created_at.strftime("%Y.%m/%d") %></div>
+        </div>
+        <div class="text">
+          <%= link_to(product_path(product.id)) do %>
+            <%= product.title %>
+          <% end %>
+        </div>
+        <div class="extra text">
+          <i class="tags icon"></i>
+          <% product.tags.each do |tag| %>
+          <%= tag.tag_name %>,
+          <% end %>
+        </div>
+        <% if user_signed_in? %>
+        <div class="actions">
+          <a id="like_button_<%= product.id %>">
+            <%= render 'likes/like_button', product: product %>
+          </a>
+          <a id="follow_button_<%= product.user.id %>">
+            <%= render 'relationships/follow_button', user: product.user %>
+          </a>
+          <div class="ui divider"></div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div style="padding-bottom:20px;padding-left:10px;width:100%">
+  <%= paginate @products %>
+</div>

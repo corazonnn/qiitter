@@ -15,4 +15,3 @@ import '../stylesheets/application';
 //グラフ機能のため、gem chartkick
 require("chartkick");
 require("chart.js");
-import('test');

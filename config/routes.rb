@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
   root 'products#index'
-  get 'toppages/index'
   resources :users, only: [:show] do
     member do #URLを深掘りするオプションを付与する
       get :likings
@@ -14,6 +13,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
     collection do
       get :search
+      get :graph
     end
   end
   resources :likes, only: [:create, :destroy]

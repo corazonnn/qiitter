@@ -3,15 +3,13 @@ class LikesController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
     current_user.like(@product) #likeメソッド
-    flash[:notice] = 'いいねしました'
     @product.create_notification_like(current_user)
-    redirect_to root_url
+    #redirect_to root_url（ajaxを使用しているから消す）
   end
 
   def destroy
-    product = Product.find(params[:product_id])
-    current_user.unlike(product)
-    flash[:notice] = 'いいねを解除しました'
-    redirect_to root_url
+    @product = Product.find(params[:product_id])
+    current_user.unlike(@product)
+    #redirect_to root_url（ajaxを使用しているから消す）
   end
 end

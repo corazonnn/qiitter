@@ -5,7 +5,11 @@ module ApplicationHelper
 
     class HTMLwithCoderay < Redcarpet::Render::HTML
         def block_code(code, language)
+          if language.present?
             language = language.split(':')[0]
+          else
+            language = "rb"
+          end
 
             case language.to_s
             when 'rb'
@@ -41,5 +45,15 @@ module ApplicationHelper
         }
         markdown = Redcarpet::Markdown.new(html_render, options)
         markdown.render(text)
+    end
+
+    def embedded_svg filename, options={}
+      file = File.read(Rails.root.join('app', 'assets', 'images', filename))
+      doc = Nokogiri::HTML::DocumentFragment.parse file
+      svg = doc.at_css 'svg'
+      if options[:class].present?
+        svg['class'] = options[:class]
+      end
+      doc.to_html.html_safe
     end
 end
