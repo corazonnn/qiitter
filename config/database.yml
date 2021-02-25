@@ -15,8 +15,8 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   #username: root(元々)
   #password:
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
+  username: root
+  password: zero7364
   host: localhost
 
 development:
@@ -53,5 +53,5 @@ test:
 production:
   <<: *default
   database: qiitter_production
-  username: qiitter
-  password: <%= ENV['QIITTER_DATABASE_PASSWORD'] %>
+  username: root
+  password: zero7364

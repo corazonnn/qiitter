@@ -86,3 +86,8 @@ gem 'coderay'
 
 #デバックツール
 gem 'pry-rails'
+
+#ユニコーン(アプリケーションサーバー)
+group :production, :staging do
+ gem 'unicorn'
+end

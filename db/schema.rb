@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_02_15_043544) do
 
-  create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.text "body"
     t.bigint "user_id", null: false
     t.bigint "product_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_043544) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "likes", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "product_id"
     t.datetime "created_at", precision: 6, null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_043544) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "notifications", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "visitor_id", null: false
     t.bigint "visited_id", null: false
     t.bigint "product_id"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_043544) do
     t.index ["visitor_id"], name: "index_notifications_on_visitor_id"
   end
 
-  create_table "products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "products", charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.bigint "user_id", null: false
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_043544) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
-  create_table "relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "relationships", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "follow_id"
     t.datetime "created_at", precision: 6, null: false
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_043544) do
     t.index ["user_id"], name: "index_relationships_on_user_id"
   end
 
-  create_table "tag_maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "tag_maps", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -75,13 +75,13 @@ ActiveRecord::Schema.define(version: 2021_02_15_043544) do
     t.index ["tag_id"], name: "index_tag_maps_on_tag_id"
   end
 
-  create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "tags", charset: "utf8mb4", force: :cascade do |t|
     t.string "tag_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
