@@ -15,9 +15,9 @@
           絞り込み検索
           <i class="dropdown icon"></i>
           <div class="menu">
-            <%= link_to "新しい順", search_products_path(keyword: "new"),class: "item", remote: true  %>
-            <%= link_to "古い順", search_products_path(keyword: "old"),class: "item", remote: true  %>
-            <%= link_to "人気順", search_products_path(keyword: "like"),class: "item", remote: true %>
+            <%= link_to "新しい順", search_products_path(keyword: "new"),class: "item"  %>
+            <%= link_to "古い順", search_products_path(keyword: "old"),class: "item"  %>
+            <%= link_to "人気順", search_products_path(keyword: "like"),class: "item" %>
           </div>
         </div>
       </div>
@@ -30,17 +30,16 @@
   <div class="one wide column"></div>
   <div class="eight wide column">
 
-    <div class="ui secondary pointing menu" style="padding:10px 20px 0 20px;background-color:#fffffe;margin-bottom:0;border-radius:7px 7px 0 0;">
-      <h3 class="ui header" style="padding:20px 20px 30px 20px;color:#232946;">
-        <i class="chart line icon" style="float:left;"></i>あなたの分析
-        <div class="sub header">
-          データ化
-        </div>
-      </h3>
+    <div class="ui secondary pointing menu" style="padding-top:20px;padding-left:20px;background-color:#fffffe;margin-bottom:0;border-radius:7px 7px 0 0;">
       <%= link_to 'あなたのグラフ',root_path, class: "active item" %>
       <%= link_to 'あなたの今までの投稿',graph_products_path, class: "item" %>
     </div>
     <!--グラフ-->
+    <% unless user_signed_in? %>
+      <div style="background-color:#fffffe;padding:10px;border-radius:0 0 7px 7px;">
+        ※ログイン後あなただけのグラフが表示されます
+      </div>
+    <% end %>
     <% if @product.present? %>
     <div style="background-color:#fffffe;padding-top:10px;border-radius:0 0 7px 7px;">
       <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
