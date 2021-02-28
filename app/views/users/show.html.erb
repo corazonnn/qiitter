@@ -45,7 +45,11 @@
           </div>
           <div class="extra content">
             <% if current_user == @user%>
-              <button class="fluid ui button" style="background:#eebbc3;"><%= link_to "プロフィールを編集", edit_user_registration_path,style: "color:#232946;" %></button>
+              <% if current_user.name == "guest"%>
+                <button class="fluid ui button" style="background:#eebbc3;">ゲストログインは編集できません</button>
+              <% else %>
+                <button class="fluid ui button" style="background:#eebbc3;"><%= link_to "プロフィールを編集", edit_user_registration_path,style: "color:#232946;" %></button>
+              <% end %>
             <% else %>
               <%= render 'layouts/follow_button', user: @user %>
             <% end %>

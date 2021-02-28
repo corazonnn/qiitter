@@ -29,12 +29,16 @@
 
   <div class="one wide column"></div>
   <div class="eight wide column">
-      <div class="ui secondary pointing menu" style="padding:10px 20px 0 20px;background-color:#fffffe;margin-bottom:0;border-radius:7px 7px 0 0;">
+      <div class="ui secondary pointing menu" style="padding-top:20px;padding-left:20px;background-color:#fffffe;margin-bottom:0;border-radius:7px 7px 0 0;">
         <%= link_to 'あなたのグラフ',root_path, class: "item" %>
         <%= link_to 'あなたの今までの投稿',graph_products_path, class: "active item" %>
       </div>
       <!--グラフ-->
-    
+      <% unless user_signed_in? %>
+        <div style="background-color:#fffffe;padding:10px;border-radius:0 0 7px 7px;">
+          ※ログイン後あなただけのグラフが表示されます
+        </div>
+      <% end %>
       <% if @my_product.present? %>
       <div style="background-color:#fff;padding-top:10px">
         <!--円グラフ-->
