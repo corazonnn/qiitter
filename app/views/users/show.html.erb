@@ -67,7 +67,7 @@
         <%= link_to "フォロワー", followers_user_path(@user), class: "item" %>
       </div>
       <!--グラフ-->
-      <% if @product.present? %>
+      <% if @user.products.present? %>
         <div style="background-color:#fff;padding-top:10px;border-radius:0 0 7px 7px;margin-bottom:20px;">
           <h3 class="ui header" style="padding:20px;">
             <i class="chart bar outline icon" style="float:left;"></i>あなたのストーリー

@@ -25,10 +25,11 @@ class ApplicationController < ActionController::Base
       @products = Kaminari.paginate_array(products).page(params[:page]).per(7)
     end
   end
-  def create_graph #棒グラフ
-    if user_signed_in? #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
-      @my_product = current_user.products.order(id: :asc).page(params[:page]).per(7)
-      @product = current_user.products.order(id: :asc)
+  def create_graph(user) #棒グラフ
+    if user_signed_in?  #もしログインしているならプロダクトを古い順に並べて、それをループで回して、順番に＠dataに（作った時間,個数）を入れていく。
+      
+      @my_product = user.products.order(id: :asc).page(params[:page]).per(7)
+      @product = user.products.order(id: :asc)
       if @product.present?
         @data = []
         @product.each_with_index do |product, idx|
@@ -39,11 +40,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def create_pie_graph #円グラフとタグのパーセント
+  def create_pie_graph(user) #円グラフとタグのパーセント
     if user_signed_in?
       #ここから円グラフ
-      @my_product = current_user.products.order(id: :desc).page(params[:page]).per(7)
-      products = current_user.products.all
+      @my_product = user.products.order(id: :desc).page(params[:page]).per(7)
+      products = user.products.all
       pie_graph_data = []
       @pie_data = {}
       products.each do |product|

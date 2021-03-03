@@ -1,8 +1,12 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:show, :new, :create, :destroy, :edit, :update] #ログイン済みかどうかの確認
   before_action :correct_user, only: [:destroy, :edit, :update] #本人確認
-  before_action :create_graph, only: [:index, :search] #棒グラフの作成
-  before_action :create_pie_graph, only: [:search, :graph, :index] #円グラフ
+  before_action -> { create_graph(current_user) }, only: [:index, :search] #棒グラフの作成
+  before_action -> { create_pie_graph(current_user) }, only: [:search, :graph, :index] #円グラフの作成
+
+
+
+
   before_action :all_users_products, only: [:index, :search, :graph]
   def index
     @products = Product.order(id: :desc).page(params[:page]).per(5)
