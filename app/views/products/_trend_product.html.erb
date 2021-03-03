@@ -5,13 +5,19 @@
         <%= image_tag( product.user.image.url) %>
       </a>
       <div class="content">
-        <a class="author"><%= product.user.name %></a>
+        <a class="author">
+          <%= link_to user_path(product.user) do %>
+            <span style="font-weight:bold;color:#232946;"><%= product.user.name %></span>
+          <% end %>
+
+        </a>
         <div class="metadata">
           <div class="date"><%= product.created_at.strftime("%Y.%m/%d") %></div>
         </div>
         <div class="text">
           <%= link_to(product_path(product.id)) do %>
-            <%= product.title %>
+            <span style="color:#d4939d;"><%= product.title %></span>
+
           <% end %>
         </div>
         <div class="extra text">

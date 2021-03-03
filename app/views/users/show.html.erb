@@ -51,7 +51,9 @@
                 <button class="fluid ui button" style="background:#eebbc3;"><%= link_to "プロフィールを編集", edit_user_registration_path,style: "color:#232946;" %></button>
               <% end %>
             <% else %>
-              <%= render 'layouts/follow_button', user: @user %>
+              <a id="follow_button_<%= @user.id %>">
+                <%= render 'relationships/follow_button', user: @user %>
+              </a>
             <% end %>
           </div>
         </div>
