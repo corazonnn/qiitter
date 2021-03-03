@@ -47,7 +47,7 @@
             <% if current_user == @user%>
               <button class="fluid ui button" style="background:#eebbc3;"><%= link_to "プロフィールを編集", edit_user_registration_path,style: "color:#232946;" %></button>
             <% else %>
-              <%= render 'layouts/follow_button', user: @user %>
+              <%= render 'relationships/follow_button', user: @user %>
             <% end %>
           </div>
         </div>
@@ -61,7 +61,7 @@
         <%= link_to "フォロワー", followers_user_path(@user), class: "item" %>
       </div>
       <div style="background-color:#fff;padding-top:10px;border-radius:0 0 7px 7px;margin-bottom:20px;">
-        <div class="ui relaxed grid" style="margin-left:20px;">
+        <div class="ui relaxed stackable grid" style="margin-left:20px;">
           <div class="three column row">
             <% @followings.each do |following| %>
               <div class="column" style="margin-top:1rem;">
