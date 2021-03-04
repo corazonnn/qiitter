@@ -1,21 +1,18 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:show, :new, :create, :destroy, :edit, :update] #ログイン済みかどうかの確認
   before_action :correct_user, only: [:destroy, :edit, :update] #本人確認
-  before_action -> { create_graph(current_user) }, only: [:index, :search] #棒グラフの作成
+  before_action -> { create_graph(current_user) }, only: [:index, :search, :graph] #棒グラフの作成
   before_action -> { create_pie_graph(current_user) }, only: [:search, :graph, :index] #円グラフの作成
-
-
-
-
   before_action :all_users_products, only: [:index, :search, :graph]
+
   def index
     @products = Product.order(id: :desc).page(params[:page]).per(5)
-    if current_user.present?#投稿数、いいねされた数の取得をする
+    if current_user.present?
       products_counts(current_user)#投稿数
-      @user_products = current_user.products
+      @user_products = current_user.products #いいねされた数の取得をする
       @like_count = 0
       @user_products.each do |product|
-        @like_count += product.likes.count #いいねされた数の取得をする
+        @like_count += product.likes.count
       end
     end
     #棒、円グラフの作成
@@ -73,6 +70,9 @@ class ProductsController < ApplicationController
     #グラフの作成
   end
   def graph
+    if current_user.present?
+      @my_product = current_user.products.order(id: :desc).page(params[:page]).per(7)
+    end
     @products = Product.order(id: :desc).page(params[:page]).per(5)
     #グラフの作成
   end

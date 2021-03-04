@@ -39,7 +39,7 @@
           ※ログイン後あなただけのグラフが表示されます
         </div>
       <% end %>
-      <% if @my_product.present? %>
+      <% if user_signed_in? %>
       <div style="background-color:#fff;padding-top:10px">
         <!--円グラフ-->
         <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
