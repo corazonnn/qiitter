@@ -7,51 +7,51 @@
             </div>
             <i class="share square icon"></i>
             <div class="menu" style="background:#fffffe;">
+              <div class="item">
+                  <small>
+                      <i class="user circle icon"></i>
+                      <%= link_to "マイページ", user_path(current_user),style: "color:#232946;" %>
+                  </small>
+              </div>
+              <div class="item">
+                  <small>
+                      <i class="th icon"></i>
+                      <%= link_to '記事を書く',new_product_path,style: "color:#232946;" %>
+                  </small>
+              </div>
+              <% if user_signed_in? %>
                 <div class="item">
                     <small>
-                        <i class="th icon"></i>
-                        <%= link_to '記事を書く',new_product_path,style: "color:#232946;" %>
+                        <i class="clipboard outline icon"></i>
+                        <%= link_to "いいね一覧", likings_user_path(current_user),style: "color:#232946;" %>
                     </small>
                 </div>
-                <% if user_signed_in? %>
-                  <div class="item">
-                      <small>
-                          <i class="clipboard outline icon"></i>
-                          <%= link_to "いいね一覧", likings_user_path(current_user),style: "color:#232946;" %>
-                      </small>
-                  </div>
-                  <div class="item">
-                      <small>
-                          <i class="bell icon"></i>
-                          <%= link_to "通知", notifications_path,style: "color:#232946;" %>
-                      </small>
-                  </div>
-                  <div class="item">
-                      <small>
-                          <i class="user circle icon"></i>
-                          <%= link_to "マイページ", user_path(current_user),style: "color:#232946;" %>
-                      </small>
-                  </div>
-                  <div class="item">
-                      <small>
-                          <i class="sign out alternate icon"></i>
-                          <%= link_to "ログアウト", destroy_user_session_path, method: :delete,style: "color:#232946;" %>
-                      </small>
-                  </div>
-                <% else %>
-                   <div class="item">
-                       <small>
-                           <i class="clipboard outline icon"></i>
-                           <%= link_to "ログイン", new_user_session_path, class: 'post' %>
-                       </small>
-                   </div>
-                   <div class="item">
-                       <small>
-                           <i class="clipboard outline icon"></i>
-                           <%= link_to "新規登録", new_user_registration_path, class: 'post' %>
-                       </small>
-                   </div>
-                <% end %>
+                <div class="item">
+                    <small>
+                        <i class="bell icon"></i>
+                        <%= link_to "通知", notifications_path,style: "color:#232946;" %>
+                    </small>
+                </div>
+                <div class="item">
+                    <small>
+                        <i class="sign out alternate icon"></i>
+                        <%= link_to "ログアウト", destroy_user_session_path, method: :delete,style: "color:#232946;" %>
+                    </small>
+                </div>
+              <% else %>
+                 <div class="item">
+                     <small>
+                         <i class="clipboard outline icon"></i>
+                         <%= link_to "ログイン", new_user_session_path, class: 'post' %>
+                     </small>
+                 </div>
+                 <div class="item">
+                   <small>
+                    <i class="clipboard outline icon"></i>
+                    <%= link_to "新規登録", new_user_registration_path, class: 'post' %>
+                   </small>
+                 </div>
+              <% end %>
             </div>
         </div>
     </div>

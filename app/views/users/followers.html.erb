@@ -1,58 +1,8 @@
 <div class="ui stackable grid" style="background-color: #232946;padding-top:30px">
   <div class="two wide column"></div>
-    <div class="four wide column" style="margin-right:20px;">
-      <div class="side active">
-        <div class="ui card centered fluid">
-          <div class="image">
-            <%= image_tag @user.image.url,class: 'icon' %>
-          </div>
-          <div class="content">
-            <a class="header"><%= @user.name %></a>
-            <div class="description">
-              <div class="ui equal width grid">
-                <div class="column">
-                  <div class="ui small statistic">
-                    <div class="value">
-                      <%= @count_products %>
-                    </div>
-                    <div class="label">
-                      投稿
-                    </div>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="ui small statistic">
-                    <div class="value">
-                      <%= @count_followings %>
-                    </div>
-                    <div class="label">
-                      <%= link_to "フォロー", followings_user_path(@user),style: "color:#232946;" %>
-                    </div>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="ui small statistic">
-                    <div class="value">
-                      <%= @count_followers %>
-                    </div>
-                    <div class="label">
-                      <%= link_to "フォロワー", followers_user_path(@user),style: "color:#232946;" %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="extra content">
-            <% if current_user == @user%>
-              <button class="fluid ui button" style="background:#eebbc3;"><%= link_to "プロフィールを編集", edit_user_registration_path,style: "color:#232946;" %></button>
-            <% else %>
-              <%= render 'relationships/follow_button', user: @user %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="four wide column" style="margin-right:20px;">
+    <%= render 'users/profile'%>
+  </div>
 
     <div class="eight wide column">
       <div class="ui secondary pointing menu" style="background-color:#fff;margin-bottom:0;padding:10px 20px 0 20px;">

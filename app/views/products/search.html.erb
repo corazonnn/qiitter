@@ -4,12 +4,12 @@
   <div class="one wide column"></div>
   <div class="five wide column">
     <div style="background-color:#fffffe;border-radius: 7px;">
-      <h3 class="ui header" style="padding:20px 20px;color:#232946;">
-        <i class="chart line icon" style="float:left;"></i>トレンド
-        <div class="sub header">
-          最近の投稿
-        </div>
-      </h3>
+        <h3 class="ui header padding-new">
+          <i class="chart line icon" style="float:left;"></i>トレンド
+          <div class="sub header">
+            最近の投稿
+          </div>
+        </h3>
       <div class="ui vertical menu" >
         <div class="ui dropdown item">
           絞り込み検索
@@ -29,36 +29,68 @@
 
   <div class="one wide column"></div>
   <div class="eight wide column">
-      <div class="ui secondary pointing menu" style="padding-top:20px;padding-left:20px;background-color:#fffffe;margin-bottom:0;border-radius:7px 7px 0 0;">
-        <%= link_to 'あなたのグラフ',new_product_path, class: "active item" %>
-        <%= link_to 'あなたの今までの投稿',graph_products_path, class: "item" %>
+
+    <div class="ui secondary pointing menu" style="padding-top:20px;padding-left:20px;background-color:#fffffe;margin-bottom:0;border-radius:7px 7px 0 0;">
+      <%= link_to 'あなたのグラフ',root_path, class: "active item" %>
+      <%= link_to 'あなたの今までの投稿',graph_products_path, class: "item" %>
+    </div>
+    <!--グラフ-->
+    <% unless user_signed_in? %>
+      <div style="background-color:#fffffe;padding:10px;border-radius:0 0 7px 7px;">
+        ※ログイン後あなただけのグラフが表示されます
       </div>
-      <!--グラフ-->
-      <% unless user_signed_in? %>
-        <div style="background-color:#fffffe;padding:10px;border-radius:0 0 7px 7px;">
-          ※ログイン後あなただけのグラフが表示されます
+    <% end %>
+    <% if @product.present? %>
+    <div style="background-color:#fffffe;padding-top:10px;border-radius:0 0 7px 7px;">
+      <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+        <i class="chart bar outline icon" style="float:left;"></i>あなたのストーリー
+        <div class="sub header">
+          今までの勉強の軌跡
+        </div>
+      </h3>
+      <%= area_chart @data, width: "100%", height: "25em", xtitle: "作成日", ytitle: "アウトプット個数",class: "area_chart_graph", colors: ["#eebbc3"]  %>
+      <div class="ui divider"></div>
+    </div>
+
+
+      <% if user_signed_in? %>
+        <div class="ui padded segment" style="background:#fffffe;">
+          <h3 class="ui dividing header">
+            <span style="color:#232946;"><%= current_user.name %>さん</span>
+          </h3>
+          <div class="ui grid">
+            <div class="eight wide column">
+              <h4 class="ui header"><span style="color:#232946;">投稿した記事</span></h4>
+              <div class="ui list">
+                <% if @tag_percent_data.present? %>
+                  <% @tag_percent_data.each do |key,value| %>
+                    <div class="item"><span style="color:#232946;"><%= key %></span>:&nbsp;&nbsp;&nbsp;<span style="color:#E4435E;font-weight:bold;"><%= value %>%</span></div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <div class="eight wide column">
+              <h4 class="ui header"><span style="color:#232946;">投稿数</span></h4>
+              <div style="color:#E4435E;font-weight:bold;"><%= @count_products %></div>
+              <h4 class="ui header"><span style="color:#232946;">いいねされた数</span></h4>
+              <div style="color:#E4435E;font-weight:bold;"><%= @like_count %></div>
+            </div>
+          </div>
         </div>
       <% end %>
-      <% if @product.present? %>
-      <div style="background-color:#fffffe;padding-top:10px;border-radius:0 0 7px 7px;">
-        <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
-          <i class="chart bar outline icon" style="float:left;"></i>あなたのストーリー
-          <div class="sub header">
-            今までの勉強の軌跡
-          </div>
-        </h3>
-        <%= area_chart @data, width: "100%", height: "25em", xtitle: "作成日", ytitle: "アウトプット個数",class: "area_chart_graph"  %>
-        <div class="ui divider"></div>
-        <!--円グラフ-->
-        <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
-          <i class="chart pie icon" style="float:left;"></i>あなたのタグの割合
-          <div class="sub header">
-            あなたは何に力を入れてきたのか
-          </div>
-        </h3>
-        <%= pie_chart @pie_data %>
-      </div>
-      <% end %>
+
+
+
+      <!--円グラフ-->
+    <div style="background-color:#fffffe;padding-top:10px;border-radius: 7px;">
+      <h3 class="ui header" style="padding-top:20px;padding-left:20px;">
+        <i class="chart pie icon" style="float:left;"></i>あなたのタグの割合
+        <div class="sub header">
+          あなたは何に力を入れてきたのか
+        </div>
+      </h3>
+      <%= pie_chart @pie_data %>
     </div>
+    <% end %>
   </div>
-  <div class="one wide column"></div>
+</div>

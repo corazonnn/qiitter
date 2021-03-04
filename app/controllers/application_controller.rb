@@ -38,6 +38,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def tag_percent
+    if current_user.present?
+      products_counts(current_user)#投稿数
+      @user_products = current_user.products #いいねされた数の取得をする
+      @like_count = 0
+      @user_products.each do |product|
+        @like_count += product.likes.count
+      end
+    end
+  end
+
   def create_pie_graph(user) #円グラフとタグのパーセント
     if user_signed_in?
       #ここから円グラフ
